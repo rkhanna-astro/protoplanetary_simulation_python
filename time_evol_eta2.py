@@ -1,6 +1,8 @@
 import numpy as np
 import time
 from typing import Dict, List, Tuple
+import process
+import process_nw as processnw
 
 def run_simulation(
     process_func, 
@@ -21,7 +23,7 @@ def run_simulation(
     
     while tps <= tps_end:
         # Run the process function
-        pf = process_func(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf = process.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         
         # Store results
         pf_storage[f'pf{ii}'] = pf
@@ -48,12 +50,12 @@ Minfall = 6.1341e-5
 
 # Define all simulation configurations
 sim_configs = {
-    'post_eta2': {'alpha': 0.3, 'func': process},
-    'post_eta2nw': {'alpha': 0.3, 'func': processnw},
-    'eta2': {'alpha': 0.5, 'func': process},
-    'eta2nw': {'alpha': 0.5, 'func': processnw},
-    'pre_eta2': {'alpha': 0.8, 'func': process},
-    'pre_eta2nw': {'alpha': 0.8, 'func': processnw}
+    'post_eta2': {'alpha': 0.3, 'func': process.process},
+    'post_eta2nw': {'alpha': 0.3, 'func': processnw.process},
+    'eta2': {'alpha': 0.5, 'func': process.process},
+    'eta2nw': {'alpha': 0.5, 'func': processnw.process},
+    'pre_eta2': {'alpha': 0.8, 'func': process.process},
+    'pre_eta2nw': {'alpha': 0.8, 'func': processnw.process}
 }
 
 # Run all simulations and store results

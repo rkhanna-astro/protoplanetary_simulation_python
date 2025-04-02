@@ -1,12 +1,20 @@
 import numpy as np
 import time
+import process as pros
+import process_nw as prosnw
+import config as globals
+import plot_me as plotter
+import matplotlib.pyplot as plt
+
 
 # Constants and initial parameters
 ii = 1
 tps = 1.e3
 x_sh_test = 1.0
 gamma_eff = 1.1
+globals.gamma = gamma_eff
 etaprime = 1.e-1
+globals.eta = etaprime
 Mdot_stable = -999
 dt = 50  # time increment [yr]
 xd = 1.0
@@ -22,14 +30,18 @@ alpha_0 = 0.3  # post
 # First loop with process function
 start_time = time.time()
 while tps <= 3.e3:
+    print("Time", tps)
     if ii == 1:
-        pf1_post_eta1 = process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf1_post_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf1_post_eta1
     if ii == 2:
-        pf2_post_eta1 = process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf2_post_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf2_post_eta1
     # ... (similar for ii=3 to ii=41)
     # Note: In Python, we could simplify this with a dictionary or list, but I'm keeping the structure similar to MATLAB
+
+    # plotter.plotme(pf1_post_eta1)
+    # plt.show()
     
     tpsArr_post_eta1 = np.append(tpsArr_post_eta1, tps)
     Mdisk_post_eta1 = np.append(Mdisk_post_eta1, pf[6,-1])
@@ -48,10 +60,10 @@ Ewind_post_eta1nw = np.zeros(1)
 
 while tps <= 3.e3:
     if ii == 1:
-        pf1_post_eta1nw = processnw(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf1_post_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf1_post_eta1nw
     if ii == 2:
-        pf2_post_eta1nw = processnw(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf2_post_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf2_post_eta1nw
     # ... (similar for ii=3 to ii=41)
     
@@ -74,7 +86,7 @@ alpha_0 = 0.5  # ordinary
 start_time = time.time()
 while tps <= 3.e3:
     if ii == 1:
-        pf1_eta1 = process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf1_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf1_eta1
     # ... (similar structure as above)
     
@@ -95,7 +107,7 @@ Ewind_eta1nw = np.zeros(1)
 
 while tps <= 3.e3:
     if ii == 1:
-        pf1_eta1nw = processnw(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf1_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf1_eta1nw
     # ... (similar structure as above)
     
@@ -118,7 +130,7 @@ alpha_0 = 0.8  # pre
 start_time = time.time()
 while tps <= 3.e3:
     if ii == 1:
-        pf1_pre_eta1 = process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf1_pre_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf1_pre_eta1
     # ... (similar structure as above)
     
@@ -139,7 +151,7 @@ Ewind_pre_eta1nw = np.zeros(1)
 
 while tps <= 3.e3:
     if ii == 1:
-        pf1_pre_eta1nw = processnw(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf1_pre_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf1_pre_eta1nw
     # ... (similar structure as above)
     

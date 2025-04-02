@@ -1,10 +1,21 @@
 import numpy as np
+import config as cfig
 
 def funsys(x, y):
-    global K, G, eta, gamma, Lambda0, lm, s, dSigma_dx, ts, class_
+    K = cfig.K
+    G = cfig.G 
+    eta = cfig.eta 
+    gamma = cfig.gamma 
+    Lambda0 = cfig.Lambda0 
+    lm = cfig.lm 
+    s = cfig.s
+    dSigma_dx = cfig.dSigma_dx
+    ts = cfig.ts
+    class_ = cfig.class_type
 
     mfactor = (K**1.5) * (G**((1 - 3 * gamma) / 2.0)) * (ts**(4 - 3 * gamma)) / 1.989e+30  # solar unit
     GBfactor = (4.0 * np.pi)**((gamma - 1.0) / gamma) * gamma**(-1.0 / gamma)
+    # print("Lets check GBfactor", x, y)
     GammaBig = GBfactor * y[1]**(2.0 * (1.0 - gamma) / gamma) * Lambda0 * x**s
     dGammaBig_dx = GBfactor * ((2.0 * (1.0 - gamma) / gamma) * dSigma_dx * y[1]**((2.0 - 3.0 * gamma) / gamma) * Lambda0 * x**s + y[1]**(2.0 * (1.0 - gamma) / gamma) * s * Lambda0 * x**(s - 1))
 
@@ -34,20 +45,20 @@ def funsys(x, y):
 
     return dydx
 
-# Example usage
-K = 1.0
-G = 1.0
-eta = 1.0
-gamma = 1.4
-Lambda0 = 1.0
-lm = 1.0
-s = 1.0
-dSigma_dx = 1.0
-ts = 1.0
-class_ = 'disk'
+# # Example usage
+# K = 1.0
+# G = 1.0
+# eta = 1.0
+# gamma = 1.4
+# Lambda0 = 1.0
+# lm = 1.0
+# s = 1.0
+# dSigma_dx = 1.0
+# ts = 1.0
+# class_ = 'disk'
 
-x = 1.0
-y = [1.0, 1.0, 1.0, 1.0, 1.0]
+# x = 1.0
+# y = [1.0, 1.0, 1.0, 1.0, 1.0]
 
-result = funsys(x, y)
-print(result)
+# result = funsys(x, y)
+# print(result)

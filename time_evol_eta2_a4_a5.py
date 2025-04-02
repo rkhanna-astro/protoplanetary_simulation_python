@@ -1,5 +1,6 @@
 import numpy as np
 import time
+import process
 
 # Constants and initial parameters
 tps = 1.e3
@@ -28,14 +29,14 @@ def run_simulation(result_key):
     
     config = results[result_key]
     alpha_0 = config['alpha']
-    process_func = globals()[config['func']]  # Get the function by name
+    # process_func = globals()[config['func']]  # Get the function by name
     
     print(f"\nRunning simulation for {result_key} (alpha={alpha_0}, func={config['func']})")
     start_time = time.time()
     
     while tps <= 3.e3:
         # Store each pf result in a dictionary
-        pf_dict[f'pf{ii}_{result_key}'] = process_func(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf_dict[f'pf{ii}_{result_key}'] = process.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf_dict[f'pf{ii}_{result_key}']
         
         # Append results

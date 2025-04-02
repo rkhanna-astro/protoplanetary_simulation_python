@@ -1,7 +1,17 @@
 import numpy as np
+import config as cfig
+from datetime import datetime
 
-def makedata(X, Y, ts, Menv0):
-    global K, G, gamma, Lambda0, s, Md, sc_ind, Mdot_ps, Msc
+def makedata(X, Y, ts, Menv0, tps):
+    K = cfig.K
+    G = cfig.G
+    gamma = cfig.gamma 
+    Lambda0 = cfig.Lambda0
+    s = cfig.s 
+    Md = cfig.Md 
+    sc_ind = cfig.sc_ind 
+    Mdot_ps = cfig.Mdot_ps 
+    Msc = cfig.Msc
 
     mdotfactor = ((K**1.5) * (G**((1 - 3*gamma)/2)) * (ts**(3 - 3*gamma)) / 1.989e+30) * 3.15569e+7
     mfactor = (K**1.5) * (G**((1 - 3*gamma)/2)) * (ts**(4 - 3*gamma)) / 1.989e+30
@@ -90,13 +100,25 @@ def makedata(X, Y, ts, Menv0):
     plotmat[12, :] = J
     plotmat[13, :] = factor3
 
+    # print(plotmat)
+
+    header = "r, v_phi_cs, cs, vr_cs, sigma, Mdisk, Ew, Mdot_acc, Qtoomre, Mdisk_Menv, Rcj, dlnJ_dlnx, J, factor3"
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
+
+    # Create filename with timestamp
+    csv_filename = f"output_{tps}.csv"
+
+    # Transpose plotmat so each column becomes a row (CSV convention)
+    np.savetxt(csv_filename, plotmat.T, delimiter=',', header=header, comments='')
+
     return plotmat
 
 # Example usage
-X = np.linspace(0, 10, 100)
-Y = np.random.rand(5, 100)
-ts = 1.0
-Menv0 = 1.0
+# X = np.linspace(0, 10, 100)
+# Y = np.random.rand(5, 100)
+# ts = 1.0
+# Menv0 = 1.0
 
-plotmat = makedata(X, Y, ts, Menv0)
-print(plotmat)
+# plotmat = makedata(X, Y, ts, Menv0)
+# print(plotmat)

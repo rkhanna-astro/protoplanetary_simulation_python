@@ -13,12 +13,12 @@ Minfall = 6.1341e-5  # 1.4086e-5 | 2.8509e-5 | 6.1341e-5
 
 # Initialize storage dictionaries
 results = {
-    'post_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.2, 'func': 'process'},
-    'post_eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.2, 'func': 'processnw'},
-    'eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.1, 'func': 'process'},
-    'eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.1, 'func': 'processnw'},
-    'pre_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 1.0, 'func': 'process'},
-    'pre_eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 1.0, 'func': 'processnw'}
+    'post_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'func': 'process'},
+    'post_eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'func': 'processnw'},
+    'eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'func': 'process'},
+    'eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'func': 'processnw'},
+    'pre_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'func': 'process'},
+    'pre_eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'func': 'processnw'}
 }
 
 def run_simulation(result_key):

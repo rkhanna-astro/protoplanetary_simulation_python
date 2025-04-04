@@ -1,164 +1,79 @@
 import numpy as np
 import time
-import process as pros
-import process_nw as prosnw
-import config as globals
-import plot_me as plotter
-import matplotlib.pyplot as plt
+import process as process
+import process_nw as processnw
 
-
-# Constants and initial parameters
-ii = 1
-tps = 1.e3
-x_sh_test = 1.0
-gamma_eff = 1.1
-globals.gamma = gamma_eff
-etaprime = 1.e-1
-globals.eta = etaprime
-Mdot_stable = -999
-dt = 50  # time increment [yr]
-xd = 1.0
-Minfall = 6.1341e-5  # 1.4086e-5 | 2.8509e-5 | 6.1341e-5
-
-# Initialize arrays
-tpsArr_post_eta1 = np.zeros(1)
-Mdisk_post_eta1 = np.zeros(1)
-Ewind_post_eta1 = np.zeros(1)
-
-alpha_0 = 0.3  # post
-
-# First loop with process function
-start_time = time.time()
-while tps <= 3.e3:
-    print("Time", tps)
-    if ii == 1:
-        pf1_post_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf1_post_eta1
-    if ii == 2:
-        pf2_post_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf2_post_eta1
-    # ... (similar for ii=3 to ii=41)
-    # Note: In Python, we could simplify this with a dictionary or list, but I'm keeping the structure similar to MATLAB
-
-    # plotter.plotme(pf1_post_eta1)
-    # plt.show()
+def run_simulation(process_func, alpha_0, etaprime, cases):
+    # Initialize parameters
+    tps = 1.0e3
+    dt = 50  # time increment [yr]
+    x_sh_test = 1.0
+    gamma_eff = 1.1
+    Mdot_stable = -999
     
-    tpsArr_post_eta1 = np.append(tpsArr_post_eta1, tps)
-    Mdisk_post_eta1 = np.append(Mdisk_post_eta1, pf[6,-1])
-    Ewind_post_eta1 = np.append(Ewind_post_eta1, pf[7,-1])
-    print(f'ii = {ii} , tps = {tps} , Mdisk = {Mdisk_post_eta1[ii-1]} , Ew = {Ewind_post_eta1[ii-1]}')
-    ii += 1
-    tps += dt
-print(f"Time elapsed: {time.time() - start_time} seconds")
-
-# Second loop with processnw function
-ii = 1
-tps = 1.e3
-tpsArr_post_eta1nw = np.zeros(1)
-Mdisk_post_eta1nw = np.zeros(1)
-Ewind_post_eta1nw = np.zeros(1)
-
-while tps <= 3.e3:
-    if ii == 1:
-        pf1_post_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf1_post_eta1nw
-    if ii == 2:
-        pf2_post_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf2_post_eta1nw
-    # ... (similar for ii=3 to ii=41)
+    # Initialize arrays
+    n_points = 41  # from tps=1000 to tps=3000 in steps of 50
+    tps_arr = np.zeros(n_points)
+    Mdisk = np.zeros(n_points)
+    Ewind = np.zeros(n_points)
     
-    tpsArr_post_eta1nw = np.append(tpsArr_post_eta1nw, tps)
-    Mdisk_post_eta1nw = np.append(Mdisk_post_eta1nw, pf[6,-1])
-    Ewind_post_eta1nw = np.append(Ewind_post_eta1nw, pf[7,-1])
-    print(f'ii = {ii} , tps = {tps} , Mdisk = {Mdisk_post_eta1nw[ii-1]} , Ew = {Ewind_post_eta1nw[ii-1]}')
-    ii += 1
-    tps += dt
-
-# Third section with alpha_0 = 0.5 (ordinary)
-ii = 1
-tps = 1.e3
-tpsArr_eta1 = np.zeros(1)
-Mdisk_eta1 = np.zeros(1)
-Ewind_eta1 = np.zeros(1)
-
-alpha_0 = 0.5  # ordinary
-
-start_time = time.time()
-while tps <= 3.e3:
-    if ii == 1:
-        pf1_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf1_eta1
-    # ... (similar structure as above)
+    start_time = time.time()
     
-    tpsArr_eta1 = np.append(tpsArr_eta1, tps)
-    Mdisk_eta1 = np.append(Mdisk_eta1, pf[6,-1])
-    Ewind_eta1 = np.append(Ewind_eta1, pf[7,-1])
-    print(f'ii = {ii} , tps = {tps} , Mdisk = {Mdisk_eta1[ii-1]} , Ew = {Ewind_eta1[ii-1]}')
-    ii += 1
-    tps += dt
-print(f"Time elapsed: {time.time() - start_time} seconds")
-
-# Fourth section with processnw and alpha_0 = 0.5
-ii = 1
-tps = 1.e3
-tpsArr_eta1nw = np.zeros(1)
-Mdisk_eta1nw = np.zeros(1)
-Ewind_eta1nw = np.zeros(1)
-
-while tps <= 3.e3:
-    if ii == 1:
-        pf1_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf1_eta1nw
-    # ... (similar structure as above)
+    for ii in range(n_points):
+        # Call the appropriate process function
+        pf = process_func(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        
+        # Store results
+        tps_arr[ii] = tps
+        Mdisk[ii] = pf[6, -1]  # Assuming pf is a numpy array with shape (8, N)
+        Ewind[ii] = pf[7, -1]
+        
+        print(f'ii = {ii+1}, tps = {tps}, Mdisk = {Mdisk[ii]}, Ew = {Ewind[ii]}')
+        
+        # Store in cases dictionary if provided
+        if cases is not None:
+            cases[f'pf{ii+1}'] = pf
+        
+        tps += dt
     
-    tpsArr_eta1nw = np.append(tpsArr_eta1nw, tps)
-    Mdisk_eta1nw = np.append(Mdisk_eta1nw, pf[6,-1])
-    Ewind_eta1nw = np.append(Ewind_eta1nw, pf[7,-1])
-    print(f'ii = {ii} , tps = {tps} , Mdisk = {Mdisk_eta1nw[ii-1]} , Ew = {Ewind_eta1nw[ii-1]}')
-    ii += 1
-    tps += dt
-
-# Fifth section with alpha_0 = 0.8 (pre)
-ii = 1
-tps = 1.e3
-tpsArr_pre_eta1 = np.zeros(1)
-Mdisk_pre_eta1 = np.zeros(1)
-Ewind_pre_eta1 = np.zeros(1)
-
-alpha_0 = 0.8  # pre
-
-start_time = time.time()
-while tps <= 3.e3:
-    if ii == 1:
-        pf1_pre_eta1 = pros.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf1_pre_eta1
-    # ... (similar structure as above)
+    elapsed_time = time.time() - start_time
+    print(f'Elapsed time: {elapsed_time:.2f} seconds')
     
-    tpsArr_pre_eta1 = np.append(tpsArr_pre_eta1, tps)
-    Mdisk_pre_eta1 = np.append(Mdisk_pre_eta1, pf[6,-1])
-    Ewind_pre_eta1 = np.append(Ewind_pre_eta1, pf[7,-1])
-    print(f'ii = {ii} , tps = {tps} , Mdisk = {Mdisk_pre_eta1[ii-1]} , Ew = {Ewind_pre_eta1[ii-1]}')
-    ii += 1
-    tps += dt
-print(f"Time elapsed: {time.time() - start_time} seconds")
+    return tps_arr, Mdisk, Ewind
 
-# Sixth section with processnw and alpha_0 = 0.8
-ii = 1
-tps = 1.e3
-tpsArr_pre_eta1nw = np.zeros(1)
-Mdisk_pre_eta1nw = np.zeros(1)
-Ewind_pre_eta1nw = np.zeros(1)
-
-while tps <= 3.e3:
-    if ii == 1:
-        pf1_pre_eta1nw = prosnw.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
-        pf = pf1_pre_eta1nw
-    # ... (similar structure as above)
+# Main simulation
+if __name__ == "__main__":
+    # Parameters
+    etaprime = 0.1
+    Minfall = 6.1341e-5
     
-    tpsArr_pre_eta1nw = np.append(tpsArr_pre_eta1nw, tps)
-    Mdisk_pre_eta1nw = np.append(Mdisk_pre_eta1nw, pf[6,-1])
-    Ewind_pre_eta1nw = np.append(Ewind_pre_eta1nw, pf[7,-1])
-    print(f'ii = {ii} , tps = {tps} , Mdisk = {Mdisk_pre_eta1nw[ii-1]} , Ew = {Ewind_pre_eta1nw[ii-1]}')
-    ii += 1
-    tps += dt
-
+    # Create dictionaries to store all cases
+    results = {
+        'post': {'eta1': {}, 'eta1nw': {}},
+        'ordinary': {'eta1': {}, 'eta1nw': {}},
+        'pre': {'eta1': {}, 'eta1nw': {}}
+    }
+    
+    # Post cases (alpha_0 = 0.3)
+    print("Running post cases (alpha=0.3)")
+    results['post']['eta1']['tps'], results['post']['eta1']['Mdisk'], results['post']['eta1']['Ewind'] = \
+        run_simulation(process.process, 0.3, etaprime, results['post']['eta1'])
+    
+    results['post']['eta1nw']['tps'], results['post']['eta1nw']['Mdisk'], results['post']['eta1nw']['Ewind'] = \
+        run_simulation(processnw.process, 0.3, etaprime, results['post']['eta1nw'])
+    
+    # Ordinary cases (alpha_0 = 0.5)
+    print("\nRunning ordinary cases (alpha=0.5)")
+    results['ordinary']['eta1']['tps'], results['ordinary']['eta1']['Mdisk'], results['ordinary']['eta1']['Ewind'] = \
+        run_simulation(process.process, 0.5, etaprime, results['ordinary']['eta1'])
+    
+    results['ordinary']['eta1nw']['tps'], results['ordinary']['eta1nw']['Mdisk'], results['ordinary']['eta1nw']['Ewind'] = \
+        run_simulation(processnw.process, 0.5, etaprime, results['ordinary']['eta1nw'])
+    
+    # Pre cases (alpha_0 = 0.8)
+    print("\nRunning pre cases (alpha=0.8)")
+    results['pre']['eta1']['tps'], results['pre']['eta1']['Mdisk'], results['pre']['eta1']['Ewind'] = \
+        run_simulation(process.process, 0.8, etaprime, results['pre']['eta1'])
+    
+    results['pre']['eta1nw']['tps'], results['pre']['eta1nw']['Mdisk'], results['pre']['eta1nw']['Ewind'] = \
+        run_simulation(processnw.process, 0.8, etaprime, results['pre']['eta1nw'])

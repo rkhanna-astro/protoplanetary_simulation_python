@@ -23,7 +23,7 @@ def run_simulation(
     
     while tps <= tps_end:
         # Run the process function
-        pf = process.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
+        pf = process_func(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         
         # Store results
         pf_storage[f'pf{ii}'] = pf

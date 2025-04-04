@@ -1,6 +1,7 @@
 import numpy as np
 import config as cfig
 from datetime import datetime
+import plot_me
 
 def makedata(X, Y, ts, Menv0, tps):
     K = cfig.K
@@ -101,6 +102,8 @@ def makedata(X, Y, ts, Menv0, tps):
     plotmat[13, :] = factor3
 
     # print(plotmat)
+
+    plot_me.plotme(plotmat)
 
     header = "r, v_phi_cs, cs, vr_cs, sigma, Mdisk, Ew, Mdot_acc, Qtoomre, Mdisk_Menv, Rcj, dlnJ_dlnx, J, factor3"
 

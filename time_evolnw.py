@@ -1,5 +1,6 @@
 import numpy as np
 from typing import Tuple
+import process_nw as processnw
 
 def run_simulation_nw(
     process_func,
@@ -52,7 +53,7 @@ dt = 50  # time increment [yr]
 # Run the simulation
 print("Running no-wind simulation...")
 tpsArr_nw, Mdisk_nw, Ewind_nw = run_simulation_nw(
-    process_func=processnw,
+    process_func=processnw.process,
     xd=xd,
     Minfall=Minfall
 )

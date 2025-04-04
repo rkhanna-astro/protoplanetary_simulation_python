@@ -4,8 +4,8 @@ from matplotlib import rc
 import matplotlib.gridspec as gridspec
 
 # Use LaTeX for text rendering
-rc('text', usetex=True)
-rc('font', family='sans-serif')
+plt.rc('text', usetex=False)
+plt.rc('font', family='serif')
 # rc('font', sans-serif=['helvetica'])
 
 def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):

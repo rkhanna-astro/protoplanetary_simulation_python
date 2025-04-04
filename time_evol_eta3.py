@@ -1,6 +1,8 @@
 import numpy as np
 import time
 from typing import Dict, Tuple
+import process as process
+import process_nw as processnw
 
 def run_simulation(
     process_func, 
@@ -42,12 +44,12 @@ Minfall = 6.1341e-5
 
 # Define all simulation configurations
 sim_configs = {
-    'post_eta3': {'alpha': 0.3, 'func': process},
-    'post_eta3nw': {'alpha': 0.3, 'func': processnw},
-    'eta3': {'alpha': 0.5, 'func': process},
-    'eta3nw': {'alpha': 0.5, 'func': processnw},
-    'pre_eta3': {'alpha': 0.8, 'func': process},
-    'pre_eta3nw': {'alpha': 0.8, 'func': processnw}
+    'post_eta3': {'alpha': 0.3, 'func': process.process},
+    'post_eta3nw': {'alpha': 0.3, 'func': processnw.process},
+    'eta3': {'alpha': 0.5, 'func': process.process},
+    'eta3nw': {'alpha': 0.5, 'func': processnw.process},
+    'pre_eta3': {'alpha': 0.8, 'func': process.process},
+    'pre_eta3nw': {'alpha': 0.8, 'func': processnw.process}
 }
 
 # Run all simulations and store results

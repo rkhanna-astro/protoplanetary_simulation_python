@@ -4,9 +4,12 @@ from matplotlib import rc
 import matplotlib.gridspec as gridspec
 
 # Use LaTeX for text rendering
-rc('text', usetex=True)
-rc('font', family='sans-serif')
+# rc('text', usetex=True)
+# rc('font', family='helvetica')
 # rc('font', sans-serif=['helvetica'])
+
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = ['Arial']
 
 def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     # Set parameters
@@ -17,8 +20,8 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     
     # Line styles
     Lstyle0 = '-'
-    Lstyle1 = '-'
-    Lstyle2 = '-'
+    Lstyle1 = '--'
+    Lstyle2 = '-.'
     Lstyle3 = ':'
     Lwidth0 = 0.8
     Lwidth1 = 0.8
@@ -116,29 +119,29 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     labels = []
     
     if plotmat1 is not None:
-        handles.append(plt.Line2D([], [], color=Lcolor1, linestyle=Lstyle1, linewidth=Lwidth1))
-        labels.append(r'$t=1~\rm kyr$')
+        handles.append(plt.Line2D([], [], color=Lcolor2, linestyle=Lstyle2, linewidth=Lwidth1))
+        labels.append(r'$t=3~\rm kyr$')
     
     if plotmat2 is not None:
-        handles.append(plt.Line2D([], [], color=Lcolor2, linestyle=Lstyle2, linewidth=Lwidth2))
+        handles.append(plt.Line2D([], [], color=Lcolor1, linestyle=Lstyle1, linewidth=Lwidth2))
         labels.append(r'$t=2~\rm kyr$')
     
     handles.append(plt.Line2D([], [], color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0))
-    labels.append(r'$t=3~\rm kyr$')
+    labels.append(r'$t=1~\rm kyr$')
     
-    leg = ax1.legend(handles, labels, loc='lower right', frameon=False, fontsize=14)
+    leg = ax1.legend(handles, labels, loc='lower right', frameon=False, fontsize=11)
     
     # Set legend text colors
     for text, color in zip(leg.get_texts(), [Lcolor2, Lcolor1, Lcolor0]):
         text.set_color(color)
     
     # Add horizontal reference lines
-    ax1.axhline(0.007, xmin=17/xend, xmax=30/xend, color=Lcolor0, linestyle='-', linewidth=Lwidth0)
-    ax1.axhline(0.00454, xmin=17/xend, xmax=30/xend, color=Lcolor1, linestyle='-', linewidth=Lwidth1)
-    ax1.axhline(0.00295, xmin=17/xend, xmax=30/xend, color=Lcolor2, linestyle='-', linewidth=Lwidth2)
+    # ax1.axhline(0.007, xmin=17/xend, xmax=30/xend, color=Lcolor0, linestyle='-', linewidth=Lwidth0)
+    # ax1.axhline(0.00454, xmin=17/xend, xmax=30/xend, color=Lcolor1, linestyle='-', linewidth=Lwidth1)
+    # ax1.axhline(0.00295, xmin=17/xend, xmax=30/xend, color=Lcolor2, linestyle='-', linewidth=Lwidth2)
     
     # ================== Second Subplot (Top Right) ==================
-    ax2 = fig.add_subplot(gs[0, 1])  # Row 0, column 1
+    ax2 = fig.add_subplot(gs[2, 0])  # Row 0, column 1
     
     if plotmat1 is not None:
         sigma1 = plotmat1[4,:]
@@ -158,12 +161,13 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax2.set_xticks(XTick)
     ax2.set_yticks([10, 100, 1000])
     ax2.tick_params(axis='both', which='major', length=ticklength[0]*100)
+    ax2.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax2.set_ylabel(r'$\sigma$ (g cm$^{-2}$)', fontsize=label_fsize)
-    ax2.xaxis.tick_top()
-    ax2.xaxis.set_label_position('top')
+    # ax2.xaxis.tick_top()
+    # ax2.xaxis.set_label_position('top')
     
     # ================== Third Subplot (Middle Right) ==================
-    ax3 = fig.add_subplot(gs[1, 1])  # Row 1, column 1
+    ax3 = fig.add_subplot(gs[0, 1])  # Row 1, column 1
     
     if plotmat1 is not None:
         Mdot_acc1 = plotmat1[7,:]
@@ -183,20 +187,23 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax3.set_xticks(XTick)
     ax3.set_yticks([1e-6, 1e-5, 1e-4])
     ax3.tick_params(axis='both', which='major', length=ticklength[0]*100)
+    ax3.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax3.set_ylabel(r'$\dot{M}_{\rm acc}$ (M$_\odot$ yr$^{-1}$)', fontsize=label_fsize)
     ax3.yaxis.tick_right()
     ax3.yaxis.set_label_position('right')
+    ax3.xaxis.tick_top()
+    ax3.xaxis.set_label_position('top')
     
     # Add horizontal reference lines
     Macc_Hunter = 5.723406e-5
     Macc_Shu = 1.6306e-6
-    ax3.axhline(Macc_Hunter, xmin=11.2/xend, xmax=47.7/xend, color='purple', linestyle='-', linewidth=0.6)
-    ax3.axhline(Macc_Shu, xmin=13.5/xend, xmax=41/xend, color='purple', linestyle='-', linewidth=0.6)
-    ax3.text(11.2, Macc_Hunter, 'Hunter (1977)', fontsize=12, color='purple')
-    ax3.text(13.2, Macc_Shu, 'Shu (1977)', fontsize=12, color='purple')
+    ax3.axhline(Macc_Hunter, color='purple', linestyle='--', linewidth=0.6)
+    ax3.axhline(Macc_Shu, color='purple', linestyle='--', linewidth=0.6)
+    ax3.text(11.2, Macc_Hunter, 'Hunter (1977)', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
+    ax3.text(13.2, Macc_Shu, 'Shu (1977)', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
     
     # ================== Fourth Subplot (Bottom Left) ==================
-    ax4 = fig.add_subplot(gs[2, 0])  # Row 2, column 0
+    ax4 = fig.add_subplot(gs[2, 1])  # Row 2, column 0
     
     if plotmat1 is not None:
         Qtoomre1 = plotmat1[8,:]
@@ -222,7 +229,7 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax4.yaxis.set_label_position('right')
     
     # ================== Fifth Subplot (Bottom Right) ==================
-    ax5 = fig.add_subplot(gs[2, 1])  # Row 2, column 1
+    ax5 = fig.add_subplot(gs[1, 1])  # Row 2, column 1
     
     if plotmat1 is not None:
         Mdot_w_Mdot_acc1 = plotmat1[9,:]
@@ -242,7 +249,6 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax5.set_xticks(XTick)
     ax5.set_yticks([0.01, 0.1, 1.0])
     ax5.tick_params(axis='both', which='major', length=ticklength[0]*100)
-    ax5.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax5.set_ylabel(r'$M_{\rm disk}/M_{\rm env}$', fontsize=label_fsize)
     ax5.yaxis.tick_right()
     ax5.yaxis.set_label_position('right')

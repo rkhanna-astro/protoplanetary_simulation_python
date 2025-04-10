@@ -88,7 +88,7 @@ def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable):
 
     # Calculate mass of the envelope
     Menv0 = {0.1: 5.2486, 0.2: 2.6243, 0.3: 1.7495, 0.5: 1.0497, 0.8: 0.6561, 1.0: 0.5249}.get(alpha_0, None)
-    plotmat = makedata.makedata(x, Yv, globals.ts, Menv0, tps)
+    plotmat = makedata.makedata(x, Yv, globals.ts, Menv0, tps, alpha_0, etaprime)
     print(f'Mdisk = {globals.Md}')
 
     return plotmat

@@ -2,6 +2,8 @@ import numpy as np
 import time
 import process as process
 import process_nw as processnw
+import plot_me
+import plot_me_3times
 
 def run_simulation(process_func, alpha_0, etaprime, cases):
     # Initialize parameters
@@ -57,15 +59,19 @@ if __name__ == "__main__":
     # Post cases (alpha_0 = 0.3)
     print("Running post cases (alpha=0.3)")
     results['post']['eta1']['tps'], results['post']['eta1']['Mdisk'], results['post']['eta1']['Ewind'] = \
-        run_simulation(process.process, 0.3, etaprime, results['post']['eta1'])
+        run_simulation(process.process, 0.5, 1.e-1, results['post']['eta1'])
+    
+    plot_mat_1 = results['post']['eta1']['pf1']
     
     results['post']['eta1nw']['tps'], results['post']['eta1nw']['Mdisk'], results['post']['eta1nw']['Ewind'] = \
-        run_simulation(processnw.process, 0.3, etaprime, results['post']['eta1nw'])
+        run_simulation(processnw.process, 0.5, etaprime, results['post']['eta1nw'])
     
     # Ordinary cases (alpha_0 = 0.5)
     print("\nRunning ordinary cases (alpha=0.5)")
     results['ordinary']['eta1']['tps'], results['ordinary']['eta1']['Mdisk'], results['ordinary']['eta1']['Ewind'] = \
-        run_simulation(process.process, 0.5, etaprime, results['ordinary']['eta1'])
+        run_simulation(process.process, 0.5, 1.e-2, results['ordinary']['eta1'])
+    
+    plot_mat_2 = results['ordinary']['eta1']['pf1']
     
     results['ordinary']['eta1nw']['tps'], results['ordinary']['eta1nw']['Mdisk'], results['ordinary']['eta1nw']['Ewind'] = \
         run_simulation(processnw.process, 0.5, etaprime, results['ordinary']['eta1nw'])
@@ -73,7 +79,20 @@ if __name__ == "__main__":
     # Pre cases (alpha_0 = 0.8)
     print("\nRunning pre cases (alpha=0.8)")
     results['pre']['eta1']['tps'], results['pre']['eta1']['Mdisk'], results['pre']['eta1']['Ewind'] = \
-        run_simulation(process.process, 0.8, etaprime, results['pre']['eta1'])
+        run_simulation(process.process, 0.5, 1.e-3, results['pre']['eta1'])
     
+    plot_mat_3 = results['pre']['eta1']['pf1']
+
+    #comment
+    print("\nRunning pre cases (alpha=0.8)")
+    results['pre']['eta1']['tps'], results['pre']['eta1']['Mdisk'], results['pre']['eta1']['Ewind'] = \
+        run_simulation(process.process, 0.5, 1.e-4, results['pre']['eta1'])
+    
+    plot_mat_4 = results['pre']['eta1']['pf1']
+    #comment
+
     results['pre']['eta1nw']['tps'], results['pre']['eta1nw']['Mdisk'], results['pre']['eta1nw']['Ewind'] = \
-        run_simulation(processnw.process, 0.8, etaprime, results['pre']['eta1nw'])
+        run_simulation(processnw.process, 0.5, etaprime, results['pre']['eta1nw'])
+    
+    plot_me.plotme(plot_mat_1, plot_mat_2, plot_mat_3, plot_mat_4)
+

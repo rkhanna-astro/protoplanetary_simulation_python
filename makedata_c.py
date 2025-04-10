@@ -3,7 +3,7 @@ import config as cfig
 from datetime import datetime
 import plot_me
 
-def makedata(X, Y, ts, Menv0, tps):
+def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     K = cfig.K
     G = cfig.G
     gamma = cfig.gamma 
@@ -103,14 +103,14 @@ def makedata(X, Y, ts, Menv0, tps):
 
     # print(plotmat)
 
-    plot_me.plotme(plotmat)
+    # plot_me.plotme(plotmat)
 
     header = "r, v_phi_cs, cs, vr_cs, sigma, Mdisk, Ew, Mdot_acc, Qtoomre, Mdisk_Menv, Rcj, dlnJ_dlnx, J, factor3"
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
 
     # Create filename with timestamp
-    csv_filename = f"output_{tps}.csv"
+    csv_filename = f"output_alpha_{alpha}_eta_{eta}_time_{int(tps)}.csv"
 
     # Transpose plotmat so each column becomes a row (CSV convention)
     np.savetxt(csv_filename, plotmat.T, delimiter=',', header=header, comments='')

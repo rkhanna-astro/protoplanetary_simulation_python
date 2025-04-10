@@ -15,7 +15,7 @@ The code is still under maintainence and improvement. However, you can run the f
     - `time_evolnw.py`
 
 ## Results:
-As of now the results will be simple CSV files with all the essential properties that we aim to study to understand the disk evolution. The code will generate something like `output_{time_year}.csv`. Here, time_year will range from 1000 to 3000 years incremented by 50 years.
+As of now the results will be simple CSV files with all the essential properties that we aim to study to understand the disk evolution. The code will generate something like `output_alpha_{alpha}_eta_{eta}_time_{time_year}.csv`. Here, time_year will range from 1000 to 3000 years incremented by 50 years.
 
 ## Further Updates:
 Soon, with the team, I aim to fix the complete codebase. For regular updates, do visit this github repository or take git pulls.

@@ -2,11 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import matplotlib.gridspec as gridspec
+import matplotlib as mpl
+import matplotlib.ticker as tick
+
+# mpl.rcParams['latex.preamble'] = r'\usepackage{amsmath}'
+# For MiKTeX:
+# mpl.rcParams['latex.executable'] = r'C:\Program Files\MiKTeX\miktex\bin\x64\pdflatex.exe'
 
 # Use LaTeX for text rendering
-plt.rc('text', usetex=False)
-plt.rc('font', family='serif')
-# rc('font', sans-serif=['helvetica'])
+# rc('text', usetex=True)
+# rc('font', family='sans-serif')
+
+plt.rcParams['font.family'] = 'sans-serif'
+plt.rcParams['font.sans-serif'] = ['Arial']
 
 def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     # Set parameters
@@ -17,9 +25,9 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     
     # Line styles
     Lstyle0 = '-'
-    Lstyle1 = '-'
-    Lstyle2 = '-'
-    Lstyle3 = '-'
+    Lstyle1 = '--'
+    Lstyle2 = '-.'
+    Lstyle3 = '--'
     Lwidth0 = 0.8
     Lwidth1 = 0.8
     Lwidth2 = 0.8
@@ -100,6 +108,7 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax1.set_ylim([0.009, 4])
     ax1.set_xticks(XTick)
     ax1.set_yticks([0.01, 0.1, 1])
+    ax1.get_xaxis().set_major_formatter(tick.ScalarFormatter())
     ax1.tick_params(axis='both', which='major', length=ticklength[0]*100)
     ax1.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax1.set_ylabel(r'Velocity (km s$^{-1}$)', fontsize=label_fsize)
@@ -115,7 +124,7 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     # You would need to implement the actual fitting here
     
     # ================== Second Subplot (Top Right) ==================
-    ax2 = fig.add_subplot(gs[0, 1])  # Row 0, column 1
+    ax2 = fig.add_subplot(gs[2, 0])  # Row 0, column 1
     
     if plotmat1 is not None:
         sigma1 = plotmat1[4,:]
@@ -133,14 +142,16 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax2.set_xlim([xstart, xend])
     ax2.set_ylim([10, 4000])
     ax2.set_xticks(XTick)
+    ax2.get_xaxis().set_major_formatter(tick.ScalarFormatter())
     ax2.set_yticks([10, 100, 1000])
     ax2.tick_params(axis='both', which='major', length=ticklength[0]*100)
+    ax2.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax2.set_ylabel(r'$\sigma$ (g cm$^{-2}$)', fontsize=label_fsize)
-    ax2.xaxis.tick_top()
-    ax2.xaxis.set_label_position('top')
+    # ax2.xaxis.tick_top()
+    # ax2.xaxis.set_label_position('top')
     
     # ================== Third Subplot (Middle Right) ==================
-    ax3 = fig.add_subplot(gs[1, 1])  # Row 1, column 1
+    ax3 = fig.add_subplot(gs[0, 1])  # Row 1, column 1
     
     if plotmat1 is not None:
         Mdot_acc1 = plotmat1[7,:]
@@ -161,19 +172,22 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax3.set_yticks([1e-6, 1e-5, 1e-4])
     ax3.tick_params(axis='both', which='major', length=ticklength[0]*100)
     ax3.set_ylabel(r'$\dot{M}_{\rm acc}$ (M$_\odot$ yr$^{-1}$)', fontsize=label_fsize)
+    ax3.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax3.yaxis.tick_right()
     ax3.yaxis.set_label_position('right')
+    ax3.xaxis.tick_top()
+    ax3.xaxis.set_label_position('top')
     
     # Add horizontal reference lines
     Macc_Hunter = 5.723406e-5
     Macc_Shu = 1.6306e-6
-    ax3.axhline(Macc_Hunter, color='purple', linestyle='-', linewidth=0.6)
-    ax3.axhline(Macc_Shu, color='purple', linestyle='-', linewidth=0.6)
-    ax3.text(7.75, Macc_Hunter+2.5e-5, 'Hunter (1977)', fontsize=12, color='purple')
-    ax3.text(8.6, Macc_Shu+7e-7, 'Shu (1977)', fontsize=12, color='purple')
+    ax3.axhline(Macc_Hunter, color='purple', linestyle='--', linewidth=0.6)
+    ax3.axhline(Macc_Shu, color='purple', linestyle='--', linewidth=0.6)
+    ax3.text(11.2, Macc_Hunter, 'Hunter (1977)', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
+    ax3.text(13.2, Macc_Shu, 'Shu (1977)', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
     
     # ================== Fourth Subplot (Bottom Left) ==================
-    ax4 = fig.add_subplot(gs[2, 0])  # Row 2, column 0
+    ax4 = fig.add_subplot(gs[2, 1])  # Row 2, column 0
     
     if plotmat1 is not None:
         Qtoomre1 = plotmat1[8,:]
@@ -199,7 +213,7 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax4.yaxis.set_label_position('right')
     
     # ================== Fifth Subplot (Bottom Right) ==================
-    ax5 = fig.add_subplot(gs[2, 1])  # Row 2, column 1
+    ax5 = fig.add_subplot(gs[1, 1])  # Row 2, column 1
     
     if plotmat1 is not None:
         Mdot_w_Mdot_acc1 = plotmat1[9,:]
@@ -219,7 +233,7 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax5.set_xticks(XTick)
     ax5.set_yticks([0.01, 0.1, 1.0])
     ax5.tick_params(axis='both', which='major', length=ticklength[0]*100)
-    ax5.set_xlabel(r'radius (AU)', fontsize=label_fsize)
+    # ax5.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax5.set_ylabel(r'$M_{\rm disk}/M_{\rm env}$', fontsize=label_fsize)
     ax5.yaxis.tick_right()
     ax5.yaxis.set_label_position('right')
@@ -243,7 +257,7 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     handles.append(plt.Line2D([], [], color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0))
     labels.append(r'$\eta^{\prime}=10^{-1}$')
     
-    ax5.legend(handles, labels, loc='upper left', frameon=False, fontsize=13)
+    ax5.legend(handles, labels, loc='upper left', frameon=False, fontsize=10)
     
     # Save figure
     plt.tight_layout()

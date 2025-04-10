@@ -1,6 +1,7 @@
 import numpy as np
 import time
 import process
+import plot_me_3times
 
 # Constants and initial parameters
 tps = 1.e3
@@ -51,15 +52,27 @@ def run_simulation(result_key):
     
     print(f"Time elapsed: {time.time() - start_time:.2f} seconds")
 
+    return pf_dict
+
 # Run all simulations
+dict = {}
 for key in results.keys():
-    run_simulation(key)
+    if key == 'eta2':
+        dict = run_simulation(key)
+
 
 # Convert lists to numpy arrays for easier handling
 for key in results.keys():
     results[key]['tps'] = np.array(results[key]['tps'])
     results[key]['Mdisk'] = np.array(results[key]['Mdisk'])
     results[key]['Ewind'] = np.array(results[key]['Ewind'])
+
+plot_mat_1 = dict['pf1_eta2']
+plot_mat_2 = dict['pf21_eta2']
+plot_mat_3 = dict['pf41_eta2']
+
+plot_me_3times.plotme3times(plot_mat_1, plot_mat_2, plot_mat_3)
+
 
 # Access results like this:
 # post_eta2_tps = results['post_eta2']['tps']

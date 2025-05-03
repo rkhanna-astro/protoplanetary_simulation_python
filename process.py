@@ -37,13 +37,19 @@ import config as globals
 # globals = GlobalVars()
 
 
-def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable):
+def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 = None):
     # Clear previous variables (not needed in Python)
     # clc equivalent in Python is not needed
 
     # Set global variables
     globals.gamma = gamma_eff
+
     globals.Lambda0 = 0.1
+
+    if lambda0 is not None:
+        globals.Lambda0 = lambda0
+    
+        
     globals.eta = etaprime if etaprime != -999 else 1e-2
     ty = tps
     globals.ts = ty * 3.15569e7  # Convert years to seconds

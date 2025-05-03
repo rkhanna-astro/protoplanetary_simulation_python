@@ -14,6 +14,8 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     Mdot_ps = cfig.Mdot_ps 
     Msc = cfig.Msc
 
+    print("This is lambd0", Lambda0)
+
     mdotfactor = ((K**1.5) * (G**((1 - 3*gamma)/2)) * (ts**(3 - 3*gamma)) / 1.989e+30) * 3.15569e+7
     mfactor = (K**1.5) * (G**((1 - 3*gamma)/2)) * (ts**(4 - 3*gamma)) / 1.989e+30
 
@@ -31,7 +33,7 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     disk_region = np.where(sigma > 0.1)[0]
     print(f'indice:: disk_region(end): {disk_region[-1]}')
 
-    J = X * (Y[1, :] * (Y[0, :] - (2 - gamma) * X) / (3 * gamma - 4))**0.5
+    J = X * (Y[1, :] * (Y[0, :] - (2 - gamma) * X) / (3 * gamma - 4))**0.5 # J(x)
 
     dlnJ_dlnx = 0.5 + (3 * gamma - GammaBig - 4) * X / (2 * (Y[0, :] - (2.0 - gamma) * X))
     factor3 = ((4 * np.pi)**(0.5 * (1.0 - gamma) / gamma)) * (gamma**(0.5 / gamma)) * (Y[1, :]**(-1.0 / gamma))
@@ -50,7 +52,7 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
 
     v_z_cs = factor1 * V_z
 
-    J_M = np.sqrt(np.abs((3.0 * gamma - 4.0) / (Y[1, :] * (Y[0, :] - (2.0 - gamma) * X))))
+    J_M = np.sqrt(np.abs((3.0 * gamma - 4.0) / (Y[1, :] * (Y[0, :] - (2.0 - gamma) * X)))) # Confirm this
     factor4 = ((4 * np.pi)**(0.5 * (1.0 - gamma) / gamma)) * (gamma**(0.5 / gamma)) * (Y[1, :]**(gamma - 1.0 / gamma))
     jmath = factor4 * J_M
 
@@ -67,7 +69,7 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     cs = cs * 1.e-3
 
     r = X * (K**0.5) * (G**((1.0 - gamma) / 2.0)) * (ts**(2 - gamma)) / 1.49597870691e+11
-    j = K * (G**(1 - gamma)) * (ts**(3 - 2 * gamma)) * J
+    j = K * (G**(1 - gamma)) * (ts**(3 - 2 * gamma)) * J # j(r,t)
 
     Ew = (K**1.5) * (G**((3.0 - 5.0 * gamma) / 2.0)) * (ts**(6.0 - 5.0 * gamma)) * Y[4, :]
 
@@ -85,7 +87,7 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
 
     Rcj = lambda_cj / r[-1]
 
-    plotmat = np.zeros((14, len(X)))
+    plotmat = np.zeros((17, len(X)))
     plotmat[0, :] = r
     plotmat[1, :] = v_phi_cs
     plotmat[2, :] = cs
@@ -100,14 +102,17 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     plotmat[11, :] = dlnJ_dlnx
     plotmat[12, :] = J
     plotmat[13, :] = factor3
+    plotmat[14, :] = Menv
+    plotmat[15, :] = j
+    plotmat[16, :] = J_M
 
     # print(plotmat)
 
     # plot_me.plotme(plotmat)
 
-    header = "r, v_phi_cs, cs, vr_cs, sigma, Mdisk, Ew, Mdot_acc, Qtoomre, Mdisk_Menv, Rcj, dlnJ_dlnx, J, factor3"
+    header = "r, v_phi_cs, cs, vr_cs, sigma, Mdisk, Ew, Mdot_acc, Qtoomre, Mdisk_Menv, Rcj, dlnJ_dlnx, J, factor3, Menv, j, J_M"
 
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")  # Format: YYYYMMDD_HHMMSS
+    # header_2 = "Mdisk_Menv, Menv"
 
     # Create filename with timestamp
     csv_filename = f"output_alpha_{alpha}_eta_{eta}_time_{int(tps)}.csv"

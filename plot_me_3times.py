@@ -2,6 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib import rc
 import matplotlib.gridspec as gridspec
+from matplotlib.ticker import ScalarFormatter
+import matplotlib.ticker as ticker
+
 
 # Use LaTeX for text rendering
 # rc('text', usetex=True)
@@ -16,7 +19,7 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     frac_midtick = 0.45
     label_fsize = 14
     ticklength = [0.035, 0.035]
-    XTick = [5, 20, 50, 100]
+    XTick = [5, 10, 20, 30, 50, 100]
     
     # Line styles
     Lstyle0 = '-'
@@ -60,7 +63,7 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     jmath = plotmat[10,:]
     
     xstart = 4
-    xend = 125
+    xend = 128
     
     # ================== First Subplot (Top Left) ==================
     ax1 = fig.add_subplot(gs[0:2, 0])  # Spans rows 0-1, column 0
@@ -103,6 +106,9 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax1.set_ylim([0.002, 4])
     ax1.set_xticks(XTick)
     ax1.set_yticks([0.01, 0.1, 1])
+    ax1.xaxis.set_major_formatter(ScalarFormatter())
+    ax1.set_xticklabels([str(t) for t in XTick])
+    ax1.xaxis.set_minor_locator(ticker.NullLocator())
     ax1.tick_params(axis='both', which='major', length=ticklength[0]*100*0.68)
     ax1.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax1.set_ylabel(r'Velocity (km s$^{-1}$)', fontsize=label_fsize)
@@ -110,9 +116,9 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax1.xaxis.set_label_position('top')
     
     # Add text labels
-    ax1.text(5, 1.37, r'$v_{\rm \phi}$', fontsize=15)
-    ax1.text(5, 0.2, r'$c_{\rm s}$', fontsize=15)
-    ax1.text(5, 0.022, r'$v_{\rm r}$', fontsize=15)
+    ax1.text(5, 1.27, r'$v_{\rm \phi}$', fontsize=15)
+    ax1.text(5, 0.19, r'$c_{\rm s}$', fontsize=15)
+    ax1.text(5, 0.020, r'$v_{\rm r}$', fontsize=15)
     
     # Add legend
     handles = []
@@ -120,14 +126,14 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     
     if plotmat1 is not None:
         handles.append(plt.Line2D([], [], color=Lcolor2, linestyle=Lstyle2, linewidth=Lwidth1))
-        labels.append(r'$t=3~\rm kyr$')
+        labels.append(r'$\gamma = 1.1$')
     
     if plotmat2 is not None:
         handles.append(plt.Line2D([], [], color=Lcolor1, linestyle=Lstyle1, linewidth=Lwidth2))
-        labels.append(r'$t=2~\rm kyr$')
+        labels.append(r'$\gamma = 1.05$')
     
     handles.append(plt.Line2D([], [], color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0))
-    labels.append(r'$t=1~\rm kyr$')
+    labels.append(r'$\gamma = 1.0$')
     
     leg = ax1.legend(handles, labels, loc='lower right', frameon=False, fontsize=11)
     
@@ -160,6 +166,9 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax2.set_ylim([10, 4000])
     ax2.set_xticks(XTick)
     ax2.set_yticks([10, 100, 1000])
+    ax2.xaxis.set_major_formatter(ScalarFormatter())
+    ax2.set_xticklabels([str(t) for t in XTick])
+    ax2.xaxis.set_minor_locator(ticker.NullLocator())
     ax2.tick_params(axis='both', which='major', length=ticklength[0]*100)
     ax2.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax2.set_ylabel(r'$\sigma$ (g cm$^{-2}$)', fontsize=label_fsize)
@@ -186,6 +195,9 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax3.set_ylim([5e-7, 2e-4])
     ax3.set_xticks(XTick)
     ax3.set_yticks([1e-6, 1e-5, 1e-4])
+    ax3.xaxis.set_major_formatter(ScalarFormatter())
+    ax3.set_xticklabels([str(t) for t in XTick])
+    ax3.xaxis.set_minor_locator(ticker.NullLocator())
     ax3.tick_params(axis='both', which='major', length=ticklength[0]*100)
     ax3.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax3.set_ylabel(r'$\dot{M}_{\rm acc}$ (M$_\odot$ yr$^{-1}$)', fontsize=label_fsize)
@@ -199,8 +211,9 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     Macc_Shu = 1.6306e-6
     ax3.axhline(Macc_Hunter, color='purple', linestyle='--', linewidth=0.6)
     ax3.axhline(Macc_Shu, color='purple', linestyle='--', linewidth=0.6)
-    ax3.text(11.2, Macc_Hunter, 'Hunter (1977)', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
-    ax3.text(13.2, Macc_Shu, 'Shu (1977)', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
+    ax3.text(11.1, Macc_Hunter, 'Hunter (1977)', fontsize=12, color='purple', va='bottom')
+    # bbox=dict(facecolor='white', edgecolor='none', pad=0.5)
+    ax3.text(13.3, Macc_Shu, 'Shu (1977)', fontsize=12, color='purple', va='top')
     
     # ================== Fourth Subplot (Bottom Left) ==================
     ax4 = fig.add_subplot(gs[2, 1])  # Row 2, column 0
@@ -221,7 +234,14 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax4.set_xlim([xstart, xend])
     ax4.set_ylim([0.39, 1.2])
     ax4.set_xticks(XTick)
-    ax4.set_yticks([0.5, 0.6, 0.8, 1])
+    YTick = [0.5, 1, 2, 5]
+    ax4.set_yticks(YTick)
+    ax4.xaxis.set_major_formatter(ScalarFormatter())
+    ax4.yaxis.set_major_formatter(ScalarFormatter())
+    ax4.set_xticklabels([str(t) for t in XTick])
+    ax4.set_yticklabels([str(t) for t in YTick])
+    ax4.xaxis.set_minor_locator(ticker.NullLocator())
+    ax4.yaxis.set_minor_locator(ticker.NullLocator())
     ax4.tick_params(axis='both', which='major', length=ticklength[0]*100)
     ax4.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax4.set_ylabel(r'$Q$', fontsize=label_fsize)
@@ -248,6 +268,9 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax5.set_ylim([0.007, 1.2])
     ax5.set_xticks(XTick)
     ax5.set_yticks([0.01, 0.1, 1.0])
+    ax5.xaxis.set_major_formatter(ScalarFormatter())
+    ax5.set_xticklabels([str(t) for t in XTick])
+    ax5.xaxis.set_minor_locator(ticker.NullLocator())
     ax5.tick_params(axis='both', which='major', length=ticklength[0]*100)
     ax5.set_ylabel(r'$M_{\rm disk}/M_{\rm env}$', fontsize=label_fsize)
     ax5.yaxis.tick_right()

@@ -3,6 +3,7 @@ import time
 from typing import Dict, List, Tuple
 import process
 import process_nw as processnw
+import plot_me_3times
 
 def run_simulation(
     process_func, 
@@ -38,7 +39,7 @@ def run_simulation(
         tps += dt
         ii += 1
     
-    return np.array(tps_values), np.array(mdisk_values), np.array(ewind_values)
+    return np.array(tps_values), np.array(mdisk_values), np.array(ewind_values), pf_storage
 
 # Constants
 x_sh_test = 1.0
@@ -64,7 +65,7 @@ for name, config in sim_configs.items():
     print(f"\nRunning {name} with alpha={config['alpha']}")
     start_time = time.time()
     
-    tps_arr, mdisk, ewind = run_simulation(
+    tps_arr, mdisk, ewind, props = run_simulation(
         process_func=config['func'],
         alpha_0=config['alpha'],
         etaprime=etaprime
@@ -74,9 +75,16 @@ for name, config in sim_configs.items():
         'tps': tps_arr,
         'Mdisk': mdisk,
         'Ewind': ewind,
-        'time_elapsed': time.time() - start_time
+        'time_elapsed': time.time() - start_time,
+        'properties': props
     }
     print(f"Completed {name} in {results[name]['time_elapsed']:.2f} seconds")
+
+plot_mat_1 = results['post_eta2']['properties']['pf1']
+plot_mat_2 = results['eta2']['properties']['pf1']
+plot_mat_3 = results['pre_eta2']['properties']['pf1']
+
+plot_me_3times.plotme3times(plot_mat_3, plot_mat_2, plot_mat_1)
 
 # Access results like:
 # post_eta2_tps = results['post_eta2']['tps']

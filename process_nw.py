@@ -36,7 +36,7 @@ import config as globals
 
 # globals = GlobalVars()
 
-def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable):
+def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 = None):
     # Clear previous variables (not needed in Python)
     # clc equivalent in Python is not needed
 

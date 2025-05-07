@@ -14,12 +14,12 @@ import matplotlib.ticker as ticker
 plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['font.sans-serif'] = ['Arial']
 
-def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
+def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None, name = None):
     # Set parameters
     frac_midtick = 0.45
     label_fsize = 14
     ticklength = [0.035, 0.035]
-    XTick = [5, 10, 20, 30, 50, 100]
+    XTick = [5, 10, 20, 30]
     
     # Line styles
     Lstyle0 = '-'
@@ -116,29 +116,34 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax1.xaxis.set_label_position('top')
     
     # Add text labels
-    ax1.text(5, 1.27, r'$v_{\rm \phi}$', fontsize=15)
+    ax1.text(5, 1.23, r'$v_{\rm \phi}$', fontsize=15)
     ax1.text(5, 0.19, r'$c_{\rm s}$', fontsize=15)
     ax1.text(5, 0.020, r'$v_{\rm r}$', fontsize=15)
     
     # Add legend
     handles = []
     labels = []
+
+    handles.append(plt.Line2D([], [], color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0))
+    labels.append(r'$\eta^{\prime}=10^{-1}$')
     
     if plotmat1 is not None:
-        handles.append(plt.Line2D([], [], color=Lcolor2, linestyle=Lstyle2, linewidth=Lwidth1))
-        labels.append(r'$\gamma = 1.1$')
+        handles.append(plt.Line2D([], [], color=Lcolor1, linestyle=Lstyle1, linewidth=Lwidth1))
+        labels.append(r'$\eta^{\prime}=10^{-2}$')
     
     if plotmat2 is not None:
-        handles.append(plt.Line2D([], [], color=Lcolor1, linestyle=Lstyle1, linewidth=Lwidth2))
-        labels.append(r'$\gamma = 1.05$')
+        handles.append(plt.Line2D([], [], color=Lcolor2, linestyle=Lstyle2, linewidth=Lwidth2))
+        labels.append(r'$\eta^{\prime}=10^{-3}$')
     
-    handles.append(plt.Line2D([], [], color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0))
-    labels.append(r'$\gamma = 1.0$')
+    if plotmat3 is not None:
+        handles.append(plt.Line2D([], [], color=Lcolor3, linestyle=Lstyle3, linewidth=Lwidth3))
+        labels.append(r'$\eta^{\prime}=10^{-4}$')
+    
     
     leg = ax1.legend(handles, labels, loc='lower right', frameon=False, fontsize=11)
     
     # Set legend text colors
-    for text, color in zip(leg.get_texts(), [Lcolor2, Lcolor1, Lcolor0]):
+    for text, color in zip(leg.get_texts(), [Lcolor0, Lcolor1, Lcolor2, Lcolor3]):
         text.set_color(color)
     
     # Add horizontal reference lines
@@ -213,7 +218,7 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax3.axhline(Macc_Shu, color='purple', linestyle='--', linewidth=0.6)
     ax3.text(11.1, Macc_Hunter, 'Hunter (1977)', fontsize=12, color='purple', va='bottom')
     # bbox=dict(facecolor='white', edgecolor='none', pad=0.5)
-    ax3.text(13.3, Macc_Shu, 'Shu (1977)', fontsize=12, color='purple', va='top')
+    ax3.text(13.5, Macc_Shu, 'Shu (1977)', fontsize=12, color='purple', va='bottom')
     
     # ================== Fourth Subplot (Bottom Left) ==================
     ax4 = fig.add_subplot(gs[2, 1])  # Row 2, column 0
@@ -232,21 +237,25 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     
     ax4.loglog(r, Qtoomre, color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0)
     ax4.set_xlim([xstart, xend])
-    ax4.set_ylim([0.39, 1.2])
+    ax4.set_ylim([0.39, 5.2])
     ax4.set_xticks(XTick)
-    YTick = [0.5, 1, 2, 5]
+    YTick = [0.5, 1, 1.5, 2, 5]
     ax4.set_yticks(YTick)
     ax4.xaxis.set_major_formatter(ScalarFormatter())
     ax4.yaxis.set_major_formatter(ScalarFormatter())
     ax4.set_xticklabels([str(t) for t in XTick])
     ax4.set_yticklabels([str(t) for t in YTick])
     ax4.xaxis.set_minor_locator(ticker.NullLocator())
-    ax4.yaxis.set_minor_locator(ticker.NullLocator())
+    # ax4.yaxis.set_minor_locator(ticker.NullLocator())
     ax4.tick_params(axis='both', which='major', length=ticklength[0]*100)
     ax4.set_xlabel(r'radius (AU)', fontsize=label_fsize)
     ax4.set_ylabel(r'$Q$', fontsize=label_fsize)
     ax4.yaxis.tick_right()
     ax4.yaxis.set_label_position('right')
+
+    ax4.axhline(2, color='purple', linestyle='--', linewidth=0.6)
+    ax4.axhline(1.5, color='purple', linestyle='--', linewidth=0.6)
+    ax4.axhline(1, color='purple', linestyle='--', linewidth=0.6)
     
     # ================== Fifth Subplot (Bottom Right) ==================
     ax5 = fig.add_subplot(gs[1, 1])  # Row 2, column 1
@@ -278,5 +287,8 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     
     # Save figure
     plt.tight_layout()
-    plt.savefig('finalPlot1.pdf', format='pdf', bbox_inches='tight')
+    if name is None:
+        plt.savefig('finalPlot1.pdf', format='pdf', bbox_inches='tight')
+    else:
+        plt.savefig(f'{name}.pdf', format='pdf', bbox_inches='tight')
     plt.close()

@@ -203,7 +203,7 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     
     ax4.loglog(r, Qtoomre, color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0)
     ax4.set_xlim([xstart, xend])
-    ax4.set_ylim([0.3, 2.0])
+    ax4.set_ylim([0.3, 3.0])
     ax4.set_xticks(XTick)
     ax4.set_yticks([0.4, 0.6, 1, 1.4])
     ax4.tick_params(axis='both', which='major', length=ticklength[0]*100)
@@ -211,6 +211,12 @@ def plotme(plotmat, plotmat1=None, plotmat2=None, plotmat3=None):
     ax4.set_ylabel(r'$Q$', fontsize=label_fsize)
     ax4.yaxis.tick_right()
     ax4.yaxis.set_label_position('right')
+
+    ax4.axhline(2, color='purple', linestyle='--', linewidth=0.6)
+    ax4.axhline(1.5, color='purple', linestyle='--', linewidth=0.6)
+    ax4.axhline(1, color='purple', linestyle='--', linewidth=0.6)
+    ax4.text(11.2, 2, 'Q = 2', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
+    ax4.text(13.2, 1, 'Q = 1', fontsize=12, color='purple', va='center', bbox=dict(facecolor='white', edgecolor='none', pad=0.5))
     
     # ================== Fifth Subplot (Bottom Right) ==================
     ax5 = fig.add_subplot(gs[1, 1])  # Row 2, column 1

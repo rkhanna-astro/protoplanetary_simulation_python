@@ -87,7 +87,7 @@ def menv(Menv_a1eta2, MdMenv_a1eta2, Menv_a2eta2, MdMenv_a2eta2,
     
     # Save figure
     plt.tight_layout()
-    plt.savefig('MenvMdisk.jpg', format='jpg', dpi=1000)
+    plt.savefig('figure_7.jpg', format='jpg', dpi=1000)
     plt.close()
 
 # Example usage (you would call this with your actual data):

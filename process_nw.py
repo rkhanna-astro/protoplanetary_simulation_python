@@ -71,7 +71,7 @@ def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 =
     s0_root = root_scalar(
         funbvps.funbvps,
         bracket=[s0_i, s0_f],  # Interval where sign changes
-        method='brentq'        # Brent's method (default, most reliable)
+        method='toms748'        # Brent's method (default, most reliable)
     )
     print(f's0_root = {s0_root} | f(s0_root) = {funbvps.funbvps(s0_root.root)}')
 

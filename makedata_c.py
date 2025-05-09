@@ -60,6 +60,7 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     print(f'Mw/Macc (i,f): {Mdot_w_Mdot_acc[0]} and {Mdot_w_Mdot_acc[-1]}')
 
     Mdisk = mfactor * (Y[0, :] - (2.0 - gamma) * X) * Y[1, :] * X / (3.0 * gamma - 4.0)
+    print("What is Mdisk", Mdisk)
     Md = Mdisk[-1]
 
     Menv = Menv0 - Md

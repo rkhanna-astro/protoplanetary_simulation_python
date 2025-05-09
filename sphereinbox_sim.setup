@@ -1,0 +1,34 @@
+# input file for sphere-in-box setup routines
+
+# units
+           dist_unit =   1.0d16 cm    ! distance unit (e.g. au)
+           mass_unit =      solarm    ! mass unit (e.g. solarm)
+
+# particle resolution & placement
+                  np =      300000    ! requested number of particles in sphere
+             lattice =  closepacked   ! particle lattice (random,cubic,closepacked,hcp,hexagonal)
+       shuffle_parts =           F    ! relax particles by shuffling
+
+# options for box
+                lbox =       4.000    ! length of a box side in terms of spherical radii
+
+# intended result
+         form_binary =           T    ! the intent is to form a central binary
+
+# options for sphere
+       use_BE_sphere =           F    ! centrally condense as a BE sphere
+            r_sphere =       4.000    ! radius of sphere in code units
+      totmass_sphere =       1.000    ! mass of sphere in code units
+    density_contrast =         30.    ! density contrast in code units
+       cs_sphere_cgs =   1.870E+04    ! sound speed in sphere in cm/s
+              angvel =   1.006E-12    ! angular velocity in rad/s
+            rms_mach =       0.000    ! turbulent rms mach number
+          masstoflux =         20.    ! mass-to-magnetic flux ratio in units of critical value
+          ang_Bomega =        180.    ! Angle (degrees) between B and rotation axis
+        rho_pert_amp =       0.100    ! amplitude of density perturbation
+
+# Sink properties (values in .in file, if present, will take precedence)
+       icreate_sinks =           1    ! 1: create sinks.  0: do not create sinks
+               h_acc =       1.000    ! accretion radius (code units)
+              r_crit =       5.000    ! critical radius (code units)
+     h_soft_sinksink =       0.400    ! sink-sink softening radius (code units)

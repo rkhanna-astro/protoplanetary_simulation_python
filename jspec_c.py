@@ -7,7 +7,7 @@ def jspec(tpsArr_eta2, tpsArr_eta2nw, J_tot_pre_eta2, M_tot_pre_eta2, J_tot_eta2
     ticklength = [0.02, 0.02]
 
     Lstyle1 = '-'
-    Lstyle2 = '-'
+    Lstyle2 = '--'
     Lstyle3 = '-'
     Lstyle4 = '-'
     Lwidth1 = 1.0
@@ -25,42 +25,45 @@ def jspec(tpsArr_eta2, tpsArr_eta2nw, J_tot_pre_eta2, M_tot_pre_eta2, J_tot_eta2
 
     ax.set_xlabel(r'$\rm time ~(\rm yr)$', fontsize=label_fsize)
     ax.set_ylabel(r'${J}_{\rm disk}/{M}_{\rm disk}~(\rm cm^2 s^{-1})$', fontsize=label_fsize)
-    ax.set_xlim([1000, 3000])
-    ax.set_ylim([1.e+19, 15.e+19])
+    ax.set_xlim([50, 1000])
+    # ax.set_ylim([1.e+19, 15.e+19])
     ax.tick_params(length=ticklength[0] * 72, width=1.4)  # Convert cm to points
 
-    ax.plot(tpsArr_eta2, 1.e4 * (J_tot_pre_eta2 / M_tot_pre_eta2), color=Lcolor1, linewidth=Lwidth1, linestyle=Lstyle1)
-    ax.plot(tpsArr_eta2, 1.e4 * (J_tot_eta2 / M_tot_eta2), color=Lcolor2, linewidth=Lwidth2, linestyle=Lstyle2)
-    div_corrected = 0.994 * J_tot_post_eta2 / M_tot_post_eta2
-    div_corrected[-3:] = 1.02 * div_corrected[-3:]  # Manual correction
-    ax.plot(tpsArr_eta2, 1.e4 * div_corrected, color=Lcolor3, linewidth=Lwidth3, linestyle=Lstyle3)
+    # val = J_tot_eta2 / M_tot_eta2
+    # print("Checking Jdisk", M_tot_eta2)
 
-    ax.plot(tpsArr_eta2nw, 1.e4 * (J_tot_pre_eta2nw / M_tot_pre_eta2nw), color=Lcolor1, linewidth=Lwidth1, linestyle=Lstyle1)
-    ax.plot(tpsArr_eta2nw, 1.e4 * (J_tot_eta2nw / M_tot_eta2nw), color=Lcolor2, linewidth=Lwidth1, linestyle=Lstyle1)
-    ax.plot(tpsArr_eta2nw, 1.e4 * (J_tot_post_eta2nw / M_tot_post_eta2nw), color=Lcolor3, linewidth=Lwidth1, linestyle=Lstyle1)
+    ax.plot(tpsArr_eta2, 1.e4 * (J_tot_pre_eta2 / M_tot_pre_eta2), color=Lcolor1, linewidth=Lwidth1, linestyle=Lstyle1)
+    ax.plot(tpsArr_eta2, 1.e4 * (J_tot_eta2 / M_tot_eta2), color=Lcolor2, linewidth=Lwidth2, linestyle=Lstyle1)
+    # div_corrected = 0.994 * J_tot_post_eta2 / M_tot_post_eta2
+    # div_corrected[-3:] = 1.02 * div_corrected[-3:]  # Manual correction
+    ax.plot(tpsArr_eta2, 1.e4 * (J_tot_post_eta2 / M_tot_post_eta2), color=Lcolor3, linewidth=Lwidth3, linestyle=Lstyle1)
+
+    ax.plot(tpsArr_eta2nw, 1.e4 * (J_tot_pre_eta2nw / M_tot_pre_eta2nw), color=Lcolor1, linewidth=Lwidth1, linestyle=Lstyle2)
+    ax.plot(tpsArr_eta2nw, 1.e4 * (J_tot_eta2nw / M_tot_eta2nw), color=Lcolor2, linewidth=Lwidth1, linestyle=Lstyle2)
+    ax.plot(tpsArr_eta2nw, 1.e4 * (J_tot_post_eta2nw / M_tot_post_eta2nw), color=Lcolor3, linewidth=Lwidth1, linestyle=Lstyle2)
 
     ax.text(2000, 1.13e20, r'$\alpha_0 = 0.3$', fontsize=11, color=Lcolor3, fontweight='bold')
     ax.text(2300, 9.e19, r'$\alpha_0 = 0.5$', fontsize=11, color=Lcolor2, fontweight='bold')
     ax.text(2600, 7.3e19, r'$\alpha_0 = 0.8$', fontsize=11, color=Lcolor1, fontweight='bold')
 
     plt.tight_layout()
-    plt.savefig('specangmom.eps', format='eps')
+    plt.savefig('figure_8.pdf', format='pdf')
     plt.close()
 
 # Example usage
-tpsArr_eta2 = np.linspace(1000, 3000, 100)
-tpsArr_eta2nw = np.linspace(1000, 3000, 100)
-J_tot_pre_eta2 = np.random.rand(100) * 1e20
-M_tot_pre_eta2 = np.random.rand(100) * 1e20
-J_tot_eta2 = np.random.rand(100) * 1e20
-M_tot_eta2 = np.random.rand(100) * 1e20
-J_tot_post_eta2 = np.random.rand(100) * 1e20
-M_tot_post_eta2 = np.random.rand(100) * 1e20
-J_tot_pre_eta2nw = np.random.rand(100) * 1e20
-M_tot_pre_eta2nw = np.random.rand(100) * 1e20
-J_tot_eta2nw = np.random.rand(100) * 1e20
-M_tot_eta2nw = np.random.rand(100) * 1e20
-J_tot_post_eta2nw = np.random.rand(100) * 1e20
-M_tot_post_eta2nw = np.random.rand(100) * 1e20
+# tpsArr_eta2 = np.linspace(1000, 3000, 100)
+# tpsArr_eta2nw = np.linspace(1000, 3000, 100)
+# J_tot_pre_eta2 = np.random.rand(100) * 1e20
+# M_tot_pre_eta2 = np.random.rand(100) * 1e20
+# J_tot_eta2 = np.random.rand(100) * 1e20
+# M_tot_eta2 = np.random.rand(100) * 1e20
+# J_tot_post_eta2 = np.random.rand(100) * 1e20
+# M_tot_post_eta2 = np.random.rand(100) * 1e20
+# J_tot_pre_eta2nw = np.random.rand(100) * 1e20
+# M_tot_pre_eta2nw = np.random.rand(100) * 1e20
+# J_tot_eta2nw = np.random.rand(100) * 1e20
+# M_tot_eta2nw = np.random.rand(100) * 1e20
+# J_tot_post_eta2nw = np.random.rand(100) * 1e20
+# M_tot_post_eta2nw = np.random.rand(100) * 1e20
 
-jspec(tpsArr_eta2, tpsArr_eta2nw, J_tot_pre_eta2, M_tot_pre_eta2, J_tot_eta2, M_tot_eta2, J_tot_post_eta2, M_tot_post_eta2, J_tot_pre_eta2nw, M_tot_pre_eta2nw, J_tot_eta2nw, M_tot_eta2nw, J_tot_post_eta2nw, M_tot_post_eta2nw)
+# jspec(tpsArr_eta2, tpsArr_eta2nw, J_tot_pre_eta2, M_tot_pre_eta2, J_tot_eta2, M_tot_eta2, J_tot_post_eta2, M_tot_post_eta2, J_tot_pre_eta2nw, M_tot_pre_eta2nw, J_tot_eta2nw, M_tot_eta2nw, J_tot_post_eta2nw, M_tot_post_eta2nw)

@@ -44,11 +44,11 @@ def process_eta2_data(pf_dict, minr, initial_tps=1000, dt=50, max_tps=3000, case
             results[f'j_{prefix}{case_label}'].append(pf_case[1][-1] * pf_case[2][-1] * pf_case[3][-1])
             
             # Process radial profiles
-            rT = pf_case[1]
+            rT = pf_case[0]
             ind0 = np.where((rT >= minr) & (rT <= rmid))[0]
-            r = pf_case[1][ind0]
-            v_phi = pf_case[2][ind0] * pf_case[3][ind0]
-            sigma = pf_case[5][ind0]
+            r = pf_case[0][ind0]
+            v_phi = pf_case[1][ind0] * pf_case[2][ind0]
+            sigma = pf_case[4][ind0]
             
             # Calculate dr (spacing between radial points)
             fresh_ind = np.arange(len(r))
@@ -87,7 +87,7 @@ def main():
     pf_dict_eta2nw = {}  # Replace with actual data loading for no-wind case
     
     # Get minimum radius from one of the profiles
-    minr = pf_dict_eta2['pf1'][1][0] if 'pf1' in pf_dict_eta2 else 0
+    minr = pf_dict_eta2['pf1'][0][0] if 'pf1' in pf_dict_eta2 else 0
     
     # Process with wind
     print("Processing eta2 with wind...")

@@ -21,13 +21,15 @@ def jspec_etavar(
     ax.tick_params(direction='in', length=5, width=1.4)
 
     xstart, xend = 1000, 3000
-    ystart, yend = 1.e+19, 17.e+19
+    # ystart, yend = 1.e+20, 17.e+20
     ax.set_xlim([xstart, xend])
-    ax.set_ylim([ystart, yend])
+    # ax.set_ylim([ystart, yend])
 
     y11 = 1.e4 * (J_tot_pre_eta1 / M_tot_pre_eta1)
     y12 = 1.e4 * (J_tot_pre_eta2 / M_tot_pre_eta2)
     y13 = 1.e4 * (J_tot_pre_eta3 / M_tot_pre_eta3)
+    # print(J_tot_pre_eta3)
+    print("Y13", y13)
 
     y21 = 1.e4 * (J_tot_eta1 / M_tot_eta1)
     y22 = 1.e4 * (J_tot_eta2 / M_tot_eta2)
@@ -59,4 +61,5 @@ def jspec_etavar(
     ax.set_xlabel(r'$\rm time ~(\rm yr)$', fontsize=label_fsize)
     ax.set_ylabel(r'${J}_{\rm disk}/{M}_{\rm disk}~(\rm cm^2 s^{-1})$', fontsize=label_fsize)
 
-    plt.show()
+    plt.savefig('figure_9.pdf', format='pdf', bbox_inches='tight')
+    plt.close()

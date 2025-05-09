@@ -46,14 +46,15 @@ def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 =
 
     globals.Lambda0 = 0.1
 
-    if lambda0 is not None:
-        globals.Lambda0 = lambda0
+    # if lambda0 is not None:
+        # globals.Lambda0 = lambda0
     
         
     globals.eta = etaprime if etaprime != -999 else 1e-2
     ty = tps
     globals.ts = ty * 3.15569e7  # Convert years to seconds
 
+    print("Properties1", alpha_0, etaprime, gamma_eff, Mdot_stable)
     x_shock = x_sh_test
 
     if x_sh_test == 0:
@@ -101,7 +102,13 @@ def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 =
     print(f'Cs_end = {Cs_end}')
 
     # Calculate mass of the envelope
-    Menv0 = {0.1: 5.2486, 0.2: 2.6243, 0.3: 1.7495, 0.5: 1.0497, 0.8: 0.6561, 1.0: 0.5249}.get(alpha_0, None)
+    hardcoded_vals = {0.1: 5.2486, 0.2: 2.6243, 0.3: 1.7495, 0.5: 1.0497, 0.8: 0.6561, 1.0: 0.5249}
+    Menv0 = hardcoded_vals.get(alpha_0, None)
+
+    if not Menv0:
+        multi = alpha_0 * 10
+        Menv0 = np.round(hardcoded_vals[0.1] / multi, 4)
+    
     plotmat = makedata.makedata(x, Yv, globals.ts, Menv0, tps, alpha_0, etaprime)
     print(f'Mdisk = {globals.Md}')
 

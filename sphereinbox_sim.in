@@ -1,0 +1,85 @@
+# Runtime options file for Phantom, written 08/05/2025 17:47:45.2
+# Options not present assume their default values
+# This file is updated automatically after a full dump
+
+# job name
+             logfile =  simulation02.log   ! file to which output is directed
+            dumpfile =  simulation_00161   ! dump file to start from
+
+# options controlling run time and input/output
+                tmax =  13.3286488    ! end time
+               dtmax =  0.0444288293818  ! time between dumps
+                nmax =          -1    ! maximum number of timesteps (0=just get derivs and stop)
+                nout =          -1    ! write dumpfile every n dtmax (-ve=ignore)
+           nmaxdumps =          -1    ! stop after n full dumps (-ve=ignore)
+            twallmax =      000:00    ! maximum wall time (hhh:mm, 000:00=ignore)
+           dtwallmax =      024:00    ! maximum wall time between dumps (hhh:mm, 000:00=ignore)
+           nfulldump =           1    ! full dump every n dumps
+            iverbose =           0    ! verboseness of log (-1=quiet 0=default 1=allsteps 2=debug 5=max)
+
+# options controlling run time and input/output: supplementary features
+        rhofinal_cgs =       0.000    ! maximum allowed density (cgs) (<=0 to ignore)
+        dtmax_dratio =       1.258    ! dynamic dtmax: density ratio controlling decrease (<=0 to ignore)
+           dtmax_max =  0.0888665445294  ! dynamic dtmax: maximum allowed dtmax (=dtmax if <= 0)
+           dtmax_min =  0.0111070685071  ! dynamic dtmax: minimum allowed dtmax
+           calc_erot =           T    ! include E_rot in the ev_file
+
+# options controlling accuracy
+              C_cour =       0.300    ! Courant number
+             C_force =       0.250    ! dt_force number
+                tolv =   1.000E-02    ! tolerance on v iterations in timestepping
+               hfact =       1.200    ! h in units of particle spacing [h = hfact(m/rho)^(1/3)]
+                tolh =   1.000E-04    ! tolerance on h-rho iterations
+       tree_accuracy =       0.500    ! tree opening criterion (0.0-1.0)
+
+# options controlling hydrodynamics, shock capturing
+               alpha =       0.000    ! MINIMUM shock viscosity parameter
+            alphamax =       1.000    ! MAXIMUM shock viscosity parameter
+              alphaB =       1.000    ! shock resistivity parameter
+         psidecayfac =       1.000    ! div B diffusion parameter
+        overcleanfac =       1.000    ! factor to increase cleaning speed (decreases time step)
+                beta =       2.000    ! beta viscosity
+        avdecayconst =       0.100    ! decay time constant for viscosity switches
+
+# options controlling damping
+               idamp =           0    ! artificial damping of velocities (0=off, 1=constant, 2=star, 3=disc)
+
+# options controlling equation of state
+                ieos =           8    ! eqn of state (1=isoth;2=adiab;3=locally iso;8=barotropic)
+                  mu =       2.381    ! mean molecular weight
+            drhocrit =       0.500    ! transition size between rhocrit0 & 1 (fraction of rhocrit0; barotropic eos)
+            rhocrit0 =   9.893E-19    ! critical density 0 in g/cm^3 (barotropic eos)
+            rhocrit1 =   1.000E-14    ! critical density 1 in g/cm^3 (barotropic eos)
+            rhocrit2 =   1.000E-10    ! critical density 2 in g/cm^3 (barotropic eos)
+            rhocrit3 =   1.000E-03    ! critical density 3 in g/cm^3 (barotropic eos)
+            rhocrit4 =   1.000E-01    ! critical density 4 in g/cm^3 (barotropic eos)
+              gamma1 =       1.400    ! adiabatic index 1 (barotropic eos)
+              gamma2 =       1.100    ! adiabatic index 2 (barotropic eos)
+              gamma3 =  1.66666667    ! adiabatic index 3 (barotropic eos)
+              gamma4 =       1.100    ! adiabatic index 4 (barotropic eos)
+
+# options controlling sink particles
+     isink_potential =           0    ! sink potential (0=1/r,1=surf)
+       icreate_sinks =           1    ! allow automatic sink particle creation
+        rho_crit_cgs =   1.000E-10    ! density above which sink particles are created (g/cm^3)
+              r_crit =       5.000    ! critical radius for point mass creation (no new sinks < r_crit from existing sink)
+               h_acc =       1.000    ! accretion radius for new sink particles
+      h_soft_sinkgas =       0.000    ! softening length for new sink particles
+     h_soft_sinksink =       0.400    ! softening length between sink particles
+               f_acc =       0.800    ! particles < f_acc*h_acc accreted without checks
+      r_merge_uncond =       0.000    ! sinks will unconditionally merge within this separation
+        r_merge_cond =       0.000    ! sinks will merge if bound within this radius
+
+# options relating to external forces
+      iexternalforce =           0    ! 1=star,2=coro,3=bina,4=prdr,5=toru,6=toys,7=exte,8=spir,9=Lens,10=dens,11=Eins,
+
+# options controlling physical viscosity
+           irealvisc =           0    ! physical viscosity type (0=none,1=const,2=Shakura/Sunyaev)
+          shearparam =       0.100    ! magnitude of shear viscosity (irealvisc=1) or alpha_SS (irealvisc=2)
+            bulkvisc =       0.000    ! magnitude of bulk viscosity
+
+# options for injecting/removing particles
+               rkill =      -1.000    ! deactivate particles outside this radius (<0 is off)
+
+# gravitational waves
+                  gw =           F    ! calculate gravitational wave strain

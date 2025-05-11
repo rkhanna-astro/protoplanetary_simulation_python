@@ -25,7 +25,7 @@ def jspec(tpsArr_eta2, tpsArr_eta2nw, J_tot_pre_eta2, M_tot_pre_eta2, J_tot_eta2
 
     ax.set_xlabel(r'$\rm time ~(\rm yr)$', fontsize=label_fsize)
     ax.set_ylabel(r'${J}_{\rm disk}/{M}_{\rm disk}~(\rm cm^2 s^{-1})$', fontsize=label_fsize)
-    ax.set_xlim([50, 1000])
+    ax.set_xlim([1000, 3000])
     # ax.set_ylim([1.e+19, 15.e+19])
     ax.tick_params(length=ticklength[0] * 72, width=1.4)  # Convert cm to points
 

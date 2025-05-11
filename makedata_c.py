@@ -116,7 +116,7 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     # header_2 = "Mdisk_Menv, Menv"
 
     # Create filename with timestamp
-    csv_filename = f"output_alpha_{alpha}_eta_{eta}_time_{int(tps)}.csv"
+    csv_filename = f"output_alpha_{alpha}_eta_{eta}_lambda_{Lambda0}_time_{int(tps)}.csv"
 
     # Transpose plotmat so each column becomes a row (CSV convention)
     np.savetxt(csv_filename, plotmat.T, delimiter=',', header=header, comments='')

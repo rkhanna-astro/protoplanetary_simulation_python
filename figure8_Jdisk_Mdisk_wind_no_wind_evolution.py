@@ -8,8 +8,8 @@ import jspec_c
 
 # Constants and initial parameters
 time_evolution = []
-tps = 50
-while tps <= 1000:
+tps = 1000
+while tps <= 3000:
     time_evolution.append(tps)
     tps += 50
 
@@ -44,7 +44,7 @@ results = {
 
 def run_simulation(result_key):
     """Run simulation for a given configuration"""
-    tps = 50
+    tps = 1000
     ii = 1
     pf_dict = {}
     
@@ -59,7 +59,7 @@ def run_simulation(result_key):
     print(f"\nRunning simulation for {result_key} (alpha={alpha_0}, func={config['func']})")
     start_time = time.time()
     
-    while tps <= 1000:
+    while tps <= 3000:
         # Store each pf result in a dictionary
         pf_dict[f'pf{ii}_{alpha_0}_{etaprime}'] = process_func(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable)
         pf = pf_dict[f'pf{ii}_{alpha_0}_{etaprime}']
@@ -92,7 +92,7 @@ for key in results.keys():
     alpha = results[key]['alpha']
     etaprime = results[key]['etaprime']
 
-    for ii in range(1, 21):
+    for ii in range(1, 42):
         pf_case = dict[key][f'pf{ii}_{alpha}_{etaprime}']
 
         minr = pf_case[0][0]
@@ -104,18 +104,10 @@ for key in results.keys():
         sigma = pf_case[4][ind0]
             
         # Calculate dr (spacing between radial points)
-        fresh_ind = np.arange(len(r))
-        r_extended = np.append(r, r[-1] + (r[-1] - r[-2]))
-        dr = r_extended[fresh_ind + 1] - r_extended[fresh_ind]
+        dr = np.gradient(r)
         
         # Calculate total mass and angular momentum
         M_tot = 2 * np.pi * np.sum(r * sigma * dr)
-
-        print("Time", ii)
-        print("Radius", r)
-        print("Sigma", sigma)
-        print("dr", dr)
-
         M_tot = M_tot * CONVERSION_FACTOR
         J_tot = 2 * np.pi * np.sum((r**2) * v_phi * sigma * dr) * J_CONVERSION_FACTOR
         # print("dr", dr)

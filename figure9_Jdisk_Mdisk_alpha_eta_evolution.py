@@ -29,14 +29,14 @@ results = {
     # 'post_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.1, 'func': 'process'},
     # 'post_eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.2, 'func': 'process'},
     'eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.3, 'etaprime': 0.1, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.3, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'pre_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.3, 'etaprime': 0.001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'eta3': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'eta3nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.1, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'pre_eta3': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'eta4': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.8, 'etaprime': 0.1, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'eta4nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.8, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
-    # 'pre_eta4': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.8, 'etaprime': 0.001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.3, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'pre_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.3, 'etaprime': 0.001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'eta3': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'eta3nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.1, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'pre_eta3': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'eta4': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.8, 'etaprime': 0.1, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'eta4nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.8, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'pre_eta4': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.8, 'etaprime': 0.001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
 }
 
 

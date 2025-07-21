@@ -60,52 +60,10 @@ def run_simulation(result_key):
 
 # Run all simulations
 dict = {}
-# Menv_a1eta2, MdMenv_a1eta2 = [], []
-# Menv_a2eta2, MdMenv_a2eta2 = [], []
-# Menv_a3eta2, MdMenv_a3eta2 = [], []
-# Menv_a4eta2, MdMenv_a4eta2 = [], []
-# Menv_a5eta2, MdMenv_a5eta2 = [], []
-# Menv_a6eta2, MdMenv_a6eta2 = [], []
 
 # turn = 1
 for key in results.keys():
     dict[key] = run_simulation(key)
-
-#     for ii in range(1, 42):
-#         mdisk_menv = dict[f'pf{ii}'][9][-1]
-#         menvs = dict[f'pf{ii}'][14][-1]
-#         if turn == 1:
-#             Menv_a1eta2.append(menvs)
-#             MdMenv_a1eta2.append(mdisk_menv)
-        
-#         if turn == 2:
-#             Menv_a2eta2.append(menvs)
-#             MdMenv_a2eta2.append(mdisk_menv)
-        
-#         if turn == 3:
-#             Menv_a3eta2.append(menvs)
-#             MdMenv_a3eta2.append(mdisk_menv)
-        
-#         if turn == 4:
-#             Menv_a4eta2.append(menvs)
-#             MdMenv_a4eta2.append(mdisk_menv)
-        
-#         if turn == 5:
-#             Menv_a5eta2.append(menvs)
-#             MdMenv_a5eta2.append(mdisk_menv)
-
-#         if turn == 6:
-#             Menv_a6eta2.append(menvs)
-#             MdMenv_a6eta2.append(mdisk_menv)
-    
-#     turn += 1
-
-# print(Menv_a2eta2)
-# print(MdMenv_a2eta2)
-
-# menv.menv(Menv_a1eta2, MdMenv_a1eta2, Menv_a2eta2, MdMenv_a2eta2, 
-#           Menv_a3eta2, MdMenv_a3eta2, Menv_a4eta2, MdMenv_a4eta2, 
-#           Menv_a5eta2, MdMenv_a5eta2, Menv_a6eta2, MdMenv_a6eta2)
 
 # Convert lists to numpy arrays for easier handling
 for key in results.keys():
@@ -118,9 +76,11 @@ plot_mat_2 = dict['eta2nw']['pf1']
 plot_mat_3 = dict['pre_eta2']['pf1']
 # plot_mat_4 = dict['pre_eta2nw']['pf1']
 
+aplha_str_1 = r'$\alpha_0 = 0.3$'
+alpha_str_2 = r'$\alpha_0 = 0.5$'
+alpha_str_3 = r'$\alpha_0 = 0.8$'
 
-plot_me_3times.plotme3times(plot_mat_1, plot_mat_2, plot_mat_3, None, 'figure_2')
-
+plot_me_3times.plotme3times((plot_mat_1, aplha_str_1), (plot_mat_2, alpha_str_2), (plot_mat_3, alpha_str_3), None, 'figure_2')
 
 # Access results like this:
 # post_eta2_tps = results['post_eta2']['tps']

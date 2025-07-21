@@ -1,6 +1,5 @@
 import numpy as np
 import config as cfig
-from datetime import datetime
 import plot_me
 
 def makedata(X, Y, ts, Menv0, tps, alpha, eta):

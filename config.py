@@ -1,3 +1,5 @@
+# Global configurations variable used by almost every file
+
 K = 4e5
 G = 6.67384e-11
 ts = None

@@ -113,15 +113,6 @@ for key in results.keys():
     results[key]['Mdisk'] = np.array(results[key]['Mdisk'])
     results[key]['Ewind'] = np.array(results[key]['Ewind'])
 
-# plot_mat_1 = dict['eta2']['pf1']
-# plot_mat_2 = dict['eta2nw']['pf1']
-# plot_mat_3 = dict['pre_eta2']['pf1']
-# plot_mat_4 = dict['pre_eta2nw']['pf1']
-
-
-# plot_me_3times.plotme3times(plot_mat_1, plot_mat_2, plot_mat_3, plot_mat_4)
-
-
 # Access results like this:
 # post_eta2_tps = results['post_eta2']['tps']
 # post_eta2_Mdisk = results['post_eta2']['Mdisk']

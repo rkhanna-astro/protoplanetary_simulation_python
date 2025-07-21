@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 def jspec_etavar(
         tpsArr_eta1, J_tot_pre_eta1, M_tot_pre_eta1, J_tot_eta1, M_tot_eta1, J_tot_post_eta1, M_tot_post_eta1,
         tpsArr_eta2, J_tot_pre_eta2, M_tot_pre_eta2, J_tot_eta2, M_tot_eta2, J_tot_post_eta2, M_tot_post_eta2,

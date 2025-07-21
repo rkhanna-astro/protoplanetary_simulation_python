@@ -8,35 +8,6 @@ import funsys_c as funsys
 import makedata_c as makedata
 import config as globals
 
-# Define global variables
-# class GlobalVars:
-#     K = 4e5
-#     G = 6.67384e-11
-#     ts = None
-#     eta = None
-#     gamma = None
-#     Lambda0 = 0.1
-#     lm = 1.5
-#     s = 0.7
-#     dSigma_dx = -1e3
-#     class_type = 'disk'
-#     Mdot_out = None
-#     mdotfactor = None
-#     xb = None
-#     v0 = -1e-5
-#     w0 = None
-#     G0 = None
-#     E0 = None
-#     Md = None
-#     Menv_at_time = None
-#     sc_ind = None
-#     Mdot_ps = None
-#     Msc = None
-#     Mps = 1e-3
-
-# globals = GlobalVars()
-
-
 def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 = None):
     # Clear previous variables (not needed in Python)
     # clc equivalent in Python is not needed
@@ -46,10 +17,9 @@ def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 =
 
     globals.Lambda0 = 0.1
 
-    # if lambda0 is not None:
-        # globals.Lambda0 = lambda0
+    if lambda0 is not None:
+        globals.Lambda0 = lambda0
     
-        
     globals.eta = etaprime if etaprime != -999 else 1e-2
     ty = tps
     globals.ts = ty * 3.15569e7  # Convert years to seconds

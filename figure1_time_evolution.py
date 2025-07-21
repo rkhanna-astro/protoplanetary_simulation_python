@@ -5,7 +5,7 @@ import plot_me_3times
 import menv
 
 # Constants and initial parameters
-tps = 1.e3
+tps = 5.e2
 x_sh_test = 1.0
 # gamma_eff = 1.1
 # etaprime = 1.e-2
@@ -75,7 +75,11 @@ plot_mat_2 = dict['eta2']['pf21']
 plot_mat_3 = dict['eta2']['pf41']
 # plot_mat_4 = dict['pre_eta2nw']['pf1']
 
-plot_me_3times.plotme3times(plot_mat_1, plot_mat_2, plot_mat_3, None, 'figure_1')
+time_str_1 = r't = 1000 yr'
+time_str_2 = r't = 2000 yr'
+time_str_3 = r't = 3000 yr'
+
+plot_me_3times.plotme3times((plot_mat_1, time_str_1), (plot_mat_2, time_str_2), (plot_mat_3, time_str_3), None, 'figure_1')
 
 # Access results like this:
 # post_eta2_tps = results['post_eta2']['tps']

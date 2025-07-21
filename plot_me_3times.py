@@ -5,16 +5,32 @@ import matplotlib.gridspec as gridspec
 from matplotlib.ticker import ScalarFormatter
 import matplotlib.ticker as ticker
 
-
-# Use LaTeX for text rendering
-# rc('text', usetex=True)
-# rc('font', family='helvetica')
-# rc('font', sans-serif=['helvetica'])
-
 plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['font.sans-serif'] = ['Arial']
 
-def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None, name = None):
+def plotme3times(plotmat_val, plotmat1_val=None, plotmat2_val=None, plotmat3_val=None, name = None):
+
+    plotmat = plotmat_val[0]
+    str0 = plotmat_val[1]
+
+    plotmat1 = None
+    str1 = None
+    if plotmat1_val is not None:
+        plotmat1 = plotmat1_val[0]
+        str1 = plotmat1_val[1]
+    
+    plotmat2 = None
+    str2 = None
+    if plotmat2_val is not None:
+        plotmat2 = plotmat2_val[0]
+        str2 = plotmat2_val[1]
+
+    plotmat3 = None
+    str3 = None
+    if plotmat3_val is not None:
+        plotmat3 = plotmat3_val[0]
+        str3 = plotmat3_val[1]
+
     # Set parameters
     frac_midtick = 0.45
     label_fsize = 14
@@ -125,19 +141,20 @@ def plotme3times(plotmat, plotmat1=None, plotmat2=None, plotmat3=None, name = No
     labels = []
 
     handles.append(plt.Line2D([], [], color=Lcolor0, linestyle=Lstyle0, linewidth=Lwidth0))
-    labels.append(r'$\eta^{\prime}=10^{-1}$')
+    # labels.append(r'$\eta^{\prime}=10^{-1}$')
+    labels.append(str0)
     
     if plotmat1 is not None:
         handles.append(plt.Line2D([], [], color=Lcolor1, linestyle=Lstyle1, linewidth=Lwidth1))
-        labels.append(r'$\eta^{\prime}=10^{-2}$')
+        labels.append(str1)
     
     if plotmat2 is not None:
         handles.append(plt.Line2D([], [], color=Lcolor2, linestyle=Lstyle2, linewidth=Lwidth2))
-        labels.append(r'$\eta^{\prime}=10^{-3}$')
+        labels.append(str2)
     
     if plotmat3 is not None:
         handles.append(plt.Line2D([], [], color=Lcolor3, linestyle=Lstyle3, linewidth=Lwidth3))
-        labels.append(r'$\eta^{\prime}=10^{-4}$')
+        labels.append(str3)
     
     
     leg = ax1.legend(handles, labels, loc='lower right', frameon=False, fontsize=11)

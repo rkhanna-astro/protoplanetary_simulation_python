@@ -25,7 +25,7 @@ results = {
 
 def run_simulation(result_key):
     """Run simulation for a given configuration"""
-    tps = 1.e3
+    tps = 1.e2
     ii = 1
     pf_dict = {}
     
@@ -53,6 +53,7 @@ def run_simulation(result_key):
         
         ii += 1
         tps += dt
+
     
     print(f"Time elapsed: {time.time() - start_time:.2f} seconds")
 
@@ -71,7 +72,7 @@ turn = 1
 for key in results.keys():
     dict[key] = run_simulation(key)
 
-    for ii in range(1, 42):
+    for ii in range(1, 41):
         mdisk_menv = dict[key][f'pf{ii}'][9][-1]
         menvs = dict[key][f'pf{ii}'][14][-1]
         if turn == 1:

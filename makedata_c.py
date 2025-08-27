@@ -55,7 +55,8 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     factor4 = ((4 * np.pi)**(0.5 * (1.0 - gamma) / gamma)) * (gamma**(0.5 / gamma)) * (Y[1, :]**(gamma - 1.0 / gamma))
     jmath = factor4 * J_M
 
-    Mdot_w_Mdot_acc = mdotfactor * Y[2, :] / Mdot_acc
+    Mdot_winds = mdotfactor * Y[2, :]
+    Mdot_w_Mdot_acc = Mdot_winds / Mdot_acc
     print(f'Mw/Macc (i,f): {Mdot_w_Mdot_acc[0]} and {Mdot_w_Mdot_acc[-1]}')
 
     Mdisk = mfactor * (Y[0, :] - (2.0 - gamma) * X) * Y[1, :] * X / (3.0 * gamma - 4.0)
@@ -87,7 +88,7 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
 
     Rcj = lambda_cj / r[-1]
 
-    plotmat = np.zeros((17, len(X)))
+    plotmat = np.zeros((18, len(X)))
     plotmat[0, :] = r
     plotmat[1, :] = v_phi_cs
     plotmat[2, :] = cs
@@ -105,12 +106,13 @@ def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     plotmat[14, :] = Menv
     plotmat[15, :] = j
     plotmat[16, :] = J_M
+    plotmat[17, :] = Mdot_winds
 
     # print(plotmat)
 
     # plot_me.plotme(plotmat)
 
-    header = "r, v_phi_cs, cs, vr_cs, sigma, Mdisk, Ew, Mdot_acc, Qtoomre, Mdisk_Menv, Rcj, dlnJ_dlnx, J, factor3, Menv, j, J_M"
+    header = "r, v_phi_cs, cs, vr_cs, sigma, Mdisk, Ew, Mdot_acc, Qtoomre, Mdisk_Menv, Rcj, dlnJ_dlnx, J, factor3, Menv, j, J_M, M_wind"
 
     # header_2 = "Mdisk_Menv, Menv"
 

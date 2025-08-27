@@ -17,7 +17,7 @@ Minfall = 6.1341e-5  # 1.4086e-5 | 2.8509e-5 | 6.1341e-5
 results = {
     # 'post_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.1, 'func': 'process'},
     # 'post_eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.2, 'func': 'process'},
-    'eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
+    'eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.2, 'func': 'process'},
     # 'eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.01, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
     # 'pre_eta2': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'},
     # 'pre_eta2nw': {'tps': [], 'Mdisk': [], 'Ewind': [], 'alpha': 0.5, 'etaprime': 0.0001, 'gamma': 1.1, 'lambda': 0.1, 'func': 'process'}
@@ -25,7 +25,7 @@ results = {
 
 def run_simulation(result_key):
     """Run simulation for a given configuration"""
-    tps = 1.e3
+    tps = 1.e2
     ii = 1
     pf_dict = {}
     
@@ -39,7 +39,7 @@ def run_simulation(result_key):
     print(f"\nRunning simulation for {result_key} (alpha={alpha_0}, func={config['func']})")
     start_time = time.time()
     
-    while tps <= 3.e3:
+    while tps <= 2.e3:
         # Store each pf result in a dictionary
         pf_dict[f'pf{ii}'] = process.process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0)
         pf = pf_dict[f'pf{ii}']
@@ -71,15 +71,16 @@ for key in results.keys():
     results[key]['Ewind'] = np.array(results[key]['Ewind'])
 
 plot_mat_1 = dict['eta2']['pf1']
-plot_mat_2 = dict['eta2']['pf21']
-plot_mat_3 = dict['eta2']['pf41']
-# plot_mat_4 = dict['pre_eta2nw']['pf1']
+plot_mat_2 = dict['eta2']['pf7']
+plot_mat_3 = dict['eta2']['pf17']
+plot_mat_4 = dict['eta2']['pf32']
 
-time_str_1 = r't = 1000 yr'
-time_str_2 = r't = 2000 yr'
-time_str_3 = r't = 3000 yr'
+time_str_1 = r't = 100 yr'
+time_str_2 = r't = 500 yr'
+time_str_3 = r't = 1000 yr'
+time_str_4 = r't = 2000 yr'
 
-plot_me_3times.plotme3times((plot_mat_1, time_str_1), (plot_mat_2, time_str_2), (plot_mat_3, time_str_3), None, 'figure_1')
+plot_me_3times.plotme3times((plot_mat_1, time_str_1), (plot_mat_2, time_str_2), (plot_mat_3, time_str_3), (plot_mat_4, time_str_4), 'figure_1')
 
 # Access results like this:
 # post_eta2_tps = results['post_eta2']['tps']

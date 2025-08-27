@@ -34,8 +34,8 @@ def jspec_etavar(
     y22 = 1.e4 * (J_tot_eta2 / M_tot_eta2)
     y23 = 1.e4 * (J_tot_eta3 / M_tot_eta3)
 
-    div_corrected = 0.994 * J_tot_post_eta2 / M_tot_post_eta2
-    div_corrected[-3:] *= 1.02  # Manual correction
+    div_corrected = J_tot_post_eta2 / M_tot_post_eta2
+    # div_corrected[-3:] *= 1.02  # Manual correction
 
     y31 = 1.e4 * (J_tot_post_eta1 / M_tot_post_eta1)
     y32 = 1.e4 * div_corrected

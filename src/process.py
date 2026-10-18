@@ -3,9 +3,9 @@ from scipy.integrate import odeint
 from scipy.integrate import solve_ivp
 from scipy.optimize import fsolve
 from scipy.optimize import root_scalar
-import fun_bvps_c as funbvps
-import funsys_c as funsys
-import makedata_c as makedata
+from src import fun_bvps_c as funbvps
+from src import funsys_c as funsys
+from src import makedata_c as makedata
 import config as globals
 
 def process(tps, x_sh_test, gamma_eff, alpha_0, etaprime, Mdot_stable, lambda0 = None):

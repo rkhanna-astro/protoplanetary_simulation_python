@@ -1,6 +1,6 @@
 import numpy as np
 import config as cfig
-import plot_me
+from helper import plot_me
 
 def makedata(X, Y, ts, Menv0, tps, alpha, eta):
     K = cfig.K

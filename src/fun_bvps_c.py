@@ -1,6 +1,6 @@
 import numpy as np
 from scipy.integrate import solve_ivp
-import funsys_c as funsys
+from src import funsys_c as funsys
 import config as cfig
 
 def funbvps(s0_new):
